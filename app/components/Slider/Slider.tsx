@@ -6,8 +6,9 @@ import { FC, useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import './slider.css';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { EffectFade, Pagination, Autoplay } from 'swiper/modules';
 
 const Slider = () => {
 	//console.log(data);
@@ -26,11 +27,12 @@ const Slider = () => {
 
 	return (
 		<Swiper
+			effect={'fade'}
 			direction={'vertical'}
 			pagination={{
 				clickable: true,
 			}}
-			modules={[Pagination]}
+			modules={[EffectFade, Autoplay, Pagination]}
 			ref={sliderRef}
 			slidesPerView={1}
 			slidesPerGroup={1}
@@ -46,7 +48,7 @@ const Slider = () => {
 				<img
 					className='img'
 					alt='q'
-					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/1research.png'
+					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/3popuarization.png'
 				/>
 			</SwiperSlide>
 			<SwiperSlide className='swiper-slide-slider'>
@@ -60,14 +62,14 @@ const Slider = () => {
 				<img
 					className='img'
 					alt='q'
-					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/1research.png'
+					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/2conceptrussia.png'
 				/>
 			</SwiperSlide>
 			<SwiperSlide className='swiper-slide-slider'>
 				<img
 					className='img'
 					alt='q'
-					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/1research.png'
+					src='https://ruslangrebnev.ru/wp-content/uploads/2022/11/4reason.png'
 				/>
 			</SwiperSlide>
 		</Swiper>
