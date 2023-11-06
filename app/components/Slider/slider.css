@@ -16,20 +16,17 @@
 	width: 100%;
 	object-fit: contain;
 }
-/* .swiper-pagination-bullets {
-  border: 1px solid red;
-  right: 95% !important;
-  top: 80% !important;
-} */
-/* .swiper-pagination-bullet {
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  opacity: 1;
-  background: rgba(0, 0, 0, 0.2);
-} */
+.swiper-pagination-bullets {
+	right: 89% !important;
+	top: 80% !important;
+}
+.swiper-pagination-bullet {
+	width: 10px;
+	height: 10px;
+	opacity: 1;
+	background: #ffffff;
+}
 
 .swiper-pagination-bullet-active {
-	color: #fff;
-	background: red;
+	background: #197a82;
 }
