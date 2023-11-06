@@ -9,6 +9,7 @@ export const metadata = {
 
 const bebas = Bebas_Neue({
 	weight: '400',
+	preload: false,
 });
 
 export default function RootLayout({
