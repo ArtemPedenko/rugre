@@ -1,6 +1,6 @@
 .swiper {
 	width: 100%;
-	max-width: 1175px;
+	max-width: 1440px;
 	position: relative;
 }
 
@@ -16,9 +16,11 @@
 	width: 100%;
 	object-fit: contain;
 }
+
 .swiper-pagination-bullets {
-	right: 89% !important;
+	left: 1% !important;
 	top: 80% !important;
+	padding: 5px;
 }
 .swiper-pagination-bullet {
 	width: 10px;

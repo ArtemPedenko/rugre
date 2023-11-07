@@ -11,7 +11,6 @@ import './slider.css';
 import { EffectFade, Pagination, Autoplay } from 'swiper/modules';
 
 const Slider = () => {
-	//console.log(data);
 	let sliderRef = useRef(null);
 
 	return (

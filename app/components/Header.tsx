@@ -1,5 +1,6 @@
 import MobileMenuLogo from '@/public/MobileMenuLogo';
-import Slider from './Slider/Slider';
+import Slider from './Header/Slider/Slider';
+import Button from './Header/Button';
 
 //
 export default function Header() {
@@ -7,7 +8,7 @@ export default function Header() {
 		<div className='relative bg-light_green'>
 			<div className='relative z-20 flex justify-between items-center h-[104px] px-4 pt-4 max-w-[1175px] w-full mx-auto sm:h-[140px] sm:pt-8'>
 				<img alt='logo' src='/logo.png' className='h-full' />
-				<div className='text-xl'>НОВОСТИ</div>
+				<Button>НОВОСТИ</Button>
 				<div className='w-[68px] h-[68px] md:hidden '>
 					<MobileMenuLogo />
 				</div>
