@@ -1,7 +1,6 @@
-//@ts-nocheck
-const API_URL = process.env.WP_URL;
+const API_URL = <string>process.env.WP_URL;
 
-async function fetchAPI(query: any, { variables } = {}) {
+async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
 	const headers = { 'Content-Type': 'application/json' };
 
 	const res = await fetch(API_URL, {
