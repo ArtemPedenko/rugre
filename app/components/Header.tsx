@@ -23,6 +23,9 @@ export default function Header() {
       <div className="flex items-end w-full mt-[-90px] z-1 h-[265px] xxs:h-[317px] xs:h-[355px] sm:h-[400px] md:h-auto">
         <Slider />
       </div>
+      <div className="absolute">
+        <img alt="geopolitic" src="/geo.png" />
+      </div>
     </div>
   );
 }
