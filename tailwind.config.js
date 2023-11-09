@@ -20,6 +20,9 @@ module.exports = {
 				green: '#197A81',
 				light_green: '#e3e2dc',
 			},
+			fontFamily: {
+				sans: ['var(--font-poppins)'],
+			},
 		},
 	},
 	plugins: [],

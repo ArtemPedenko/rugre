@@ -6,6 +6,7 @@ export default async function Home() {
 	return (
 		<main>
 			<Logger data={data} />
+			<div>HОВОСТИ</div>
 			<div>homepage</div>
 		</main>
 	);
