@@ -1,12 +1,28 @@
-import MobileMenuLogo from '@/public/MobileMenuLogo';
-import Slider from './Header/Slider/Slider';
-import Button from './Header/Button';
+"use client";
+import MobileMenuLogo from "@/public/MobileMenuLogo";
+import Slider from "./Header/Slider/Slider";
+import Button from "./Header/Button";
+import { useState } from "react";
+import MobileMenu from "./Header/MobileMenu";
 
 //
 export default function Header() {
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [show, setShow] = useState("hidden");
+
+	function mobileMenuHeandler() {
+		//setMobileMenuOpen(!mobileMenuOpen);
+		console.log(show);
+		if (show === "animate-hide" || show === "hidden") {
+			setShow("animate-show");
+		} else {
+			setShow("animate-hide");
+		}
+	}
+
 	return (
 		<div className='relative bg-light_green'>
-			<div className='relative z-20 flex justify-between items-center h-[104px] px-4 pt-4 max-w-[1175px] w-full mx-auto sm:h-[140px] sm:pt-8'>
+			<div className='relative z-30 flex justify-between items-center h-[104px] px-4 pt-4 max-w-[1175px] w-full mx-auto sm:h-[140px] sm:pt-8'>
 				<img alt='logo' src='/logo.png' className='h-full' />
 				<div className='hidden md:flex -mt-[30px] gap-4 lg:gap-8'>
 					<Button>НОВОСТИ</Button>
@@ -16,8 +32,12 @@ export default function Header() {
 					<Button>СОРАТНИКИ</Button>
 					<Button>КОНТАКТЫ</Button>
 				</div>
-				<div className='w-[68px] h-[68px] md:hidden '>
+				<div
+					onClick={() => mobileMenuHeandler()}
+					className='w-[68px] h-[68px] md:hidden relative'
+				>
 					<MobileMenuLogo />
+					<MobileMenu show={show} />
 				</div>
 			</div>
 			<div className='flex relative items-end w-full mt-[-90px] z-1 h-[265px] xxs:h-[317px] xs:h-[355px] sm:h-[400px] md:h-auto'>
