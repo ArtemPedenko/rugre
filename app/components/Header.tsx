@@ -8,7 +8,7 @@ export default function Header() {
 		<div className='relative bg-light_green'>
 			<div className='relative z-20 flex justify-between items-center h-[104px] px-4 pt-4 max-w-[1175px] w-full mx-auto sm:h-[140px] sm:pt-8'>
 				<img alt='logo' src='/logo.png' className='h-full' />
-				<div className='hidden md:flex gap-4'>
+				<div className='hidden md:flex -mt-[30px] gap-4 lg:gap-8'>
 					<Button>НОВОСТИ</Button>
 					<Button>БИБЛИОТЕКА</Button>
 					<Button>ВИДЕО</Button>
