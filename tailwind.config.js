@@ -23,19 +23,28 @@ module.exports = {
 			fontFamily: {
 				sans: ["var(--font-poppins)"],
 			},
+			boxShadow: {
+				sm: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
+			},
 			keyframes: {
 				mobileMenuOpen: {
-					"0%": { width: "220px", height: "0px" },
-					"100%": { width: "220px", height: "300px" },
+					"0%": { height: "0px" },
+					"100%": {
+						height: "307px",
+						boxShadow: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
+					},
 				},
 				mobileMenuClose: {
-					"0%": { width: "220px", height: "300px" },
-					"100%": { width: "220px", height: "0px" },
+					"0%": {
+						height: "307px",
+						boxShadow: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
+					},
+					"100%": { height: "0px" },
 				},
 			},
 			animation: {
-				show: "mobileMenuOpen 1s linear forwards",
-				hide: "mobileMenuClose 1s linear forwards",
+				show: "mobileMenuOpen 0.3s linear forwards",
+				hide: "mobileMenuClose 0.3s linear forwards",
 			},
 		},
 	},
