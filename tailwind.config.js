@@ -28,18 +28,20 @@ module.exports = {
 			},
 			keyframes: {
 				mobileMenuOpen: {
-					"0%": { height: "0px" },
+					"0%": { height: "0px", marginTop: "0px" },
 					"100%": {
 						height: "307px",
 						boxShadow: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
+						marginTop: "12px",
 					},
 				},
 				mobileMenuClose: {
 					"0%": {
 						height: "307px",
 						boxShadow: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
+						marginTop: "12px",
 					},
-					"100%": { height: "0px" },
+					"100%": { height: "0px", marginTop: "0px" },
 				},
 			},
 			animation: {

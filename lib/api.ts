@@ -1,10 +1,10 @@
 const API_URL: any = process.env.WP_URL;
 
-async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
-	const headers = { 'Content-Type': 'application/json' };
+async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
+	const headers = { "Content-Type": "application/json" };
 
 	const res = await fetch(API_URL, {
-		method: 'POST',
+		method: "POST",
 		headers,
 		body: JSON.stringify({ query, variables }),
 	});
@@ -12,7 +12,7 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
 	const json = await res.json();
 	if (json.errors) {
 		console.log(json.errors);
-		throw new Error('Failed to fetch API');
+		throw new Error("Failed to fetch API");
 	}
 
 	return json.data;
@@ -35,3 +35,5 @@ export async function getLatestPosts() {
 
 	return data?.posts;
 }
+
+export const revalidate = 3;

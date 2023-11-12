@@ -12,7 +12,6 @@ export default function Header() {
 
 	function mobileMenuHeandler() {
 		//setMobileMenuOpen(!mobileMenuOpen);
-		console.log(show);
 		if (show === "animate-hide" || show === "hidden") {
 			setShow("animate-show");
 		} else {
@@ -34,7 +33,7 @@ export default function Header() {
 				</div>
 				<div
 					onClick={() => mobileMenuHeandler()}
-					className='w-[68px] h-[68px] md:hidden relative'
+					className='w-[68px] h-[68px] relative md:hidden'
 				>
 					<MobileMenuLogo />
 					<MobileMenu show={show} />
