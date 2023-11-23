@@ -30,10 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      /* className={bebas.className} */ className={`${bebas.variable} font-sans`}
+      className={`${bebas.variable} font-sans`}
     >
       <body>
-        <Header />
         {children}
       </body>
     </html>
