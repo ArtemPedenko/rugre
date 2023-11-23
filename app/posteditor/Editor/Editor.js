@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { EDITOR_TOOLS } from "./tools";
-import EditorJS, { OutputData } from "@editorjs/editorjs";
+import EditorJS from "@editorjs/editorjs";
 import "./styles.css";
 
 export default function Editor({ data, onChange, holder }) {

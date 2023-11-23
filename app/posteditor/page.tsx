@@ -1,7 +1,5 @@
 // @ts-nocheck
 "use client";
-import Logger from "../Logger";
-//import EditorConvertToJSON from "./Editor/Editor";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -13,7 +11,6 @@ export default function PageEditor() {
   const [data, setData] = useState();
   return (
     <div>
-      {/* <Logger data={data} /> */}
       <div>HОВОСТИ</div>
       <Editor data={data} onChange={setData} holder="editorjs-container" />
       <button
