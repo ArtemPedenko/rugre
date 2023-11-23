@@ -1,0 +1,8 @@
+.ce-paragraph,
+.ce-header {
+  border-bottom: solid black;
+}
+.ce-code__textarea {
+  min-height: 50px !important;
+  height: 50px !important;
+}

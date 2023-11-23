@@ -1,12 +1,29 @@
+// @ts-nocheck
+"use client";
+import Logger from "../Logger";
+//import EditorConvertToJSON from "./Editor/Editor";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 
+const Editor = dynamic(() => import("./Editor/Editor"), {
+  ssr: false,
+});
 
-
-export default async function PageEditor() {
-    return (
-      <div>
-        {/* <Logger data={data} /> */}
-        <div>HОВОСТИ</div>
-      </div>
-    );
-  }
-  
+export default function PageEditor() {
+  const [data, setData] = useState();
+  return (
+    <div>
+      {/* <Logger data={data} /> */}
+      <div>HОВОСТИ</div>
+      <Editor data={data} onChange={setData} holder="editorjs-container" />
+      <button
+        onClick={() => console.log(data)}
+        className="border border-color-black w-[150px] h-[50px]"
+      >
+        console log content data
+      </button>
+      <p>Code - image name</p>
+      <p>Link - file name</p>
+    </div>
+  );
+}
