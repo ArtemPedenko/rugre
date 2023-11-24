@@ -1,13 +1,13 @@
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
-import Link from "@editorjs/link";
-import Code from "@editorjs/code";
+import { FileName, ImageName } from "./customTools";
 
 export const EDITOR_TOOLS = {
   header: {
     class: Header,
     config: {
       placeholder: "Enter a Header",
+      inlineToolbar: true,
       levels: [2, 3, 4],
       defaultLevel: 2,
     },
@@ -16,18 +16,13 @@ export const EDITOR_TOOLS = {
     class: Paragraph,
     config: {
       placeholder: "enter paragraph",
+      inlineToolbar: true,
     },
   },
-  link: {
-    class: Link,
-    config: {
-      placeholder: "enter file name",
-    },
+  image: {
+    class: ImageName,
   },
-  code: {
-    class: Code,
-    config: {
-      placeholder: "enter image name",
-    },
+  file: {
+    class: FileName,
   },
 };
