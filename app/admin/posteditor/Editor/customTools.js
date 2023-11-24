@@ -19,7 +19,7 @@ class ImageName {
 
     input.placeholder = "Paste an image name...";
     input.value = this.data && this.data.url ? this.data.url : "";
-
+    //console.log(wrapper);
     return wrapper;
   }
 
