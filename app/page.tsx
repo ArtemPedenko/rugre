@@ -1,4 +1,3 @@
-import { getLatestPosts } from "@/lib/api";
 import Logger from "./Logger";
 import Header from "./components/Header";
 

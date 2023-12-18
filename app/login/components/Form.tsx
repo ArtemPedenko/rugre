@@ -17,7 +17,7 @@ export default function Form() {
       .catch((error) => console.error(error));
   }
 
-  /*   async function loginUser(login: string, password: string) {
+  async function loginUser(login: string, password: string) {
     fetch("/admin/api", {
       method: "POST",
       headers: {
@@ -32,7 +32,7 @@ export default function Form() {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
-  } */
+  }
 
   return (
     <>
