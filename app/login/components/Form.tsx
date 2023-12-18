@@ -1,10 +1,11 @@
 "use client";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import {redirect} from "next/navigation";
 
 export default function Form() {
   async function test(login: string, password: string) {
-    fetch("https://arthttp.ru/api/user/login", {
+    const qq = await  fetch("https://arthttp.ru/api/user/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -13,8 +14,16 @@ export default function Form() {
       body: JSON.stringify({ login: login, password: password }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      //.then((data) => console.log(data))
+        .then((res: any) =>  res
+
+        )
       .catch((error) => console.error(error));
+      if (qq.success) {
+          console.log(qq)
+
+          redirect('/admin')
+      }
   }
 
   async function loginUser(login: string, password: string) {
@@ -32,6 +41,8 @@ export default function Form() {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
+
+
   }
 
   return (

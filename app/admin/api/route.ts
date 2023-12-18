@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { type NextRequest } from "next/server";
 import { cookies } from "next/headers";
-
-export async function POST(request: Request, response: NextResponse) {
+import jwt from 'jsonwebtoken';
+import { redirect } from 'next/navigation'
+export async function POST(request: Request) {
   const req = await request.json();
   console.log(req);
 
@@ -14,28 +14,41 @@ export async function POST(request: Request, response: NextResponse) {
     },
     body: JSON.stringify({ login: req.login, password: req.password }),
   });
-  const resJson = await res.json();
-  /*  cookies().set("authorization", resJson.accessToken);
-   */
-  /*  const res = await fetch("https://arthttp.ru/api/user/refresh-token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept",
-    },
-    body: JSON.stringify({ login: req.login }),
-  });
-  const resJson = await res.json();
-  console.log(resJson);
-  cookies().set("authorization", resJson.accessToken); */
 
-  return new NextResponse(JSON.stringify(resJson), {
+  type serverResponse = {
+    refreshToken: string,
+    accessToken: string
+  }
+
+  const resJson: serverResponse = await res.json();
+
+  const {refreshToken, accessToken} = resJson
+
+    const decodedRefreshToken: any = jwt.decode(refreshToken);
+    const decodedAccessToken: any = jwt.decode(accessToken);
+
+    const expirationRefreshToken = new Date(decodedRefreshToken.exp * 1000);
+    const expirationAccessToken = new Date(decodedAccessToken.exp * 1000);
+
+    //добавить секьюрное поле для прода
+    cookies().set({
+      name: 'refreshToken',
+      value: resJson.refreshToken,
+      httpOnly: true,
+      path: '/',
+      expires: expirationRefreshToken
+    })
+    cookies().set({
+      name: 'accessToken',
+      value: resJson.accessToken,
+      httpOnly: true,
+      path: '/',
+      expires: expirationAccessToken
+    })
+  //redirect('https://nextjs.org/')
+  return new NextResponse(JSON.stringify({success: true}), {
     status: 200,
-    headers: {
-      "Set-Cookie": `refreshToken=${resJson.refreshToken}; sameSite=true; httpOnly=true; path="/"`,
-    },
+
   });
+
 }
