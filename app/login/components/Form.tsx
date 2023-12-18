@@ -6,13 +6,9 @@ export default function Form() {
   async function test(login: string, password: string) {
     fetch("https://arthttp.ru/api/user/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods":
-          "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
       },
       body: JSON.stringify({ login: login, password: password }),
     })
@@ -21,7 +17,7 @@ export default function Form() {
       .catch((error) => console.error(error));
   }
 
-  async function loginUser(login: string, password: string) {
+  /*   async function loginUser(login: string, password: string) {
     fetch("/admin/api", {
       method: "POST",
       headers: {
@@ -36,7 +32,7 @@ export default function Form() {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
-  }
+  } */
 
   return (
     <>
