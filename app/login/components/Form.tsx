@@ -2,51 +2,16 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {redirect} from "next/navigation";
+import React from "react";
 
-export default function Form() {
-  async function test(login: string, password: string) {
-    const qq = await  fetch("https://arthttp.ru/api/user/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ login: login, password: password }),
-    })
-      .then((response) => response.json())
-      //.then((data) => console.log(data))
-        .then((res: any) =>  res
+interface FormProps {
+    loginUser: any//(login: string, password: string) => void;
+}
+export  const Form: React.FC<FormProps> = (props ) => {
 
-        )
-      .catch((error) => console.error(error));
-      if (qq.success) {
-          console.log(qq)
-
-          redirect('/admin')
-      }
-  }
-
-  async function loginUser(login: string, password: string) {
-    fetch("/admin/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: login,
-        password: password,
-        url: "https://arthttp.ru/api/user/login",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-
-
-  }
+    const { loginUser } = props;
 
   return (
-    <>
       <Formik
         initialValues={{ login: "", password: "" }}
         onSubmit={(values) => loginUser(values.login, values.password)}
@@ -96,7 +61,5 @@ export default function Form() {
           );
         }}
       </Formik>
-      <button onClick={() => test("root", "Hlsdf34=")}>test</button>
-    </>
   );
 }

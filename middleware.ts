@@ -4,27 +4,25 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers'
 
 export const config = {
-  matcher: "/admin/:path*",
+  matcher: '/admin/((?!api|_next/static|_next/image|favicon.ico).*)',
 };
 // This function can be marked async if using await inside
 export function middleware(request: NextRequest, response: NextResponse) {
-  //const currentPath = request.nextUrl.pathname
+  const currentPath = request.nextUrl.pathname
 
-  // if (request.nextUrl.pathname.startsWith('/admin')) {
-  //   const cookieStore = cookies()
-  //   const accessToken = cookieStore.get('accessToken')?.value
-  //   const refreshToken = cookieStore.get('refreshToken')?.value
-  //
-  //   if (accessToken && refreshToken) {
-  //     const decodedAccessToken: any = jwt.decode(accessToken);
-  //     console.log(decodedAccessToken)
-  //     // Далее делайте что-то с decodedAccessToken
-  //   } else {
-  //     // Обработка случая, когда accessToken не определен
-  //     return NextResponse.redirect(new URL('/login', request.url));
-  //   }
-  //   //return NextResponse.rewrite(new URL('/about-2', request.url))
-  // }
+    const cookieStore = cookies()
+    const accessToken = cookieStore.get('accessToken')?.value
+    const refreshToken = cookieStore.get('refreshToken')?.value
+
+    if (accessToken && refreshToken) {
+      const decodedAccessToken: any = jwt.decode(accessToken);
+      console.log(decodedAccessToken)
+      // Далее делайте что-то с decodedAccessToken
+    } else {
+      // Обработка случая, когда accessToken не определен
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    //return NextResponse.rewrite(new URL('/about-2', request.url))
 
   /* console.log(request);
   console.log(response); */
