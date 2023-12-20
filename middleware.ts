@@ -20,10 +20,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     const decodedRefreshToken: any = jwt.decode(accessToken);
 
     const expirationRefreshToken = new Date(
-      decodedRefreshToken.exp * 1000
+      decodedRefreshToken.exp * 1000,
     ).getTime();
     const expirationAccessToken = new Date(
-      decodedAccessToken.exp * 1000
+      decodedAccessToken.exp * 1000,
     ).getTime();
 
     const now = new Date();
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     if (decodedAccessToken.exp * 1000 < 600000000000000) {
       console.log("start in middleware");
       console.log(currentPath);
-      await refreshAccessToken(decodedAccessToken.login);
+      await refreshAccessToken(decodedAccessToken.login, refreshToken);
     }
   } else {
     return NextResponse.redirect(new URL("/login", request.url));

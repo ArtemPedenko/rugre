@@ -1,20 +1,23 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
-import { redirect } from "next/navigation";
 export async function POST(request: Request) {
+  const headersList = headers();
+  const url: string = headersList.get("url")!;
+  const switchCase: string = headersList.get("case")!;
   const req = await request.json();
-  console.log("route req");
-  console.log(req);
-  /* switch (req.case) {
+  console.log("refreshToken");
+  const refreshToken = cookies().get("refreshToken")?.value!;
+  switch (switchCase) {
     case "login": {
-      const res = await fetch(req.url, {
+      const res = await fetch(url, {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ login: req.login, password: req.password }),
+        body: JSON.stringify(req),
       });
 
       type serverResponse = {
@@ -32,7 +35,6 @@ export async function POST(request: Request) {
         const expirationRefreshToken = new Date(decodedRefreshToken.exp * 1000);
         const expirationAccessToken = new Date(decodedAccessToken.exp * 1000);
 
-        //добавить секьюрное поле для прода
         cookies().set({
           name: "refreshToken",
           value: resJson.refreshToken,
@@ -47,7 +49,6 @@ export async function POST(request: Request) {
           path: "/",
           expires: expirationAccessToken,
         });
-        //redirect('https://nextjs.org/')
         return new NextResponse(JSON.stringify({ success: true }), {
           status: 200,
         });
@@ -59,14 +60,14 @@ export async function POST(request: Request) {
     }
 
     case "refreshAccessToken": {
-      console.log("api toute");
-      const res = await fetch(req.url, {
+      const res = await fetch(url, {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Cookie: refreshToken,
         },
-        body: JSON.stringify({ login: req.login }),
+        body: JSON.stringify(req),
       });
       const resJson = await res.json();
       console.log(resJson);
@@ -76,8 +77,5 @@ export async function POST(request: Request) {
     }
     default:
       return new NextResponse(JSON.stringify({ sucess: false }));
-  } */
-  return new NextResponse(JSON.stringify(req));
-
-  // return new NextResponse(e.message);
+  }
 }

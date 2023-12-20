@@ -3,33 +3,32 @@ async function loginUser(login: string, password: string) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      url: "https://arthttp.ru/api/user/login",
+      case: "login",
     },
     body: JSON.stringify({
       login: login,
       password: password,
-      url: "https://arthttp.ru/api/user/login",
     }),
   });
   return await response.json();
 }
 
-async function refreshAccessToken(login: string) {
-  console.log("service");
-  console.log(login);
-  const response = await fetch(
-    "https://turbo-space-palm-tree-7g5pgwgqxw62w67q-3000.app.github.dev/admin/api",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: login,
-        url: "https://arthttp.ru/api/user/refresh-token",
-        case: "refreshAccessToken",
-      }),
-    }
-  );
+//https://arthttp.ru/api/user/refresh-token
+async function refreshAccessToken(login: string, refreshToken: string) {
+  const response = await fetch(`${process.env.BASE_URL}/admin/api`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      credentials: "include",
+      url: "http://localhost:4000/api/user/refresh-token",
+      case: "refreshAccessToken",
+      cookie: `refreshToken=${refreshToken}`,
+    },
+    body: JSON.stringify({
+      login: login,
+    }),
+  });
   const result = await response.json();
   console.log(result);
 }
