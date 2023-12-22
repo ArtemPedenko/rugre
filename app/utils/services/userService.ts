@@ -21,7 +21,7 @@ async function refreshAccessToken(login: string, refreshToken: string) {
     headers: {
       "Content-Type": "application/json",
       credentials: "include",
-      url: "http://localhost:4000/api/user/refresh-token",
+      url: "https://arthttp.ru/api/user/refresh-token",
       case: "refreshAccessToken",
       cookie: `refreshToken=${refreshToken}`,
     },
@@ -30,7 +30,7 @@ async function refreshAccessToken(login: string, refreshToken: string) {
     }),
   });
   const result = await response.json();
-  console.log(result);
+  return result;
 }
 
 export { loginUser, refreshAccessToken };

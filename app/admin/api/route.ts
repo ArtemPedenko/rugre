@@ -2,12 +2,37 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
+
+function cooketSetting(refreshToken: string, accessToken: string) {
+  const decodedRefreshToken: any = jwt.decode(refreshToken);
+  const decodedAccessToken: any = jwt.decode(accessToken);
+
+  const expirationRefreshToken = new Date(decodedRefreshToken.exp * 1000);
+  const expirationAccessToken = new Date(decodedAccessToken.exp * 1000);
+
+  cookies().set({
+    name: "refreshToken",
+    value: refreshToken,
+    httpOnly: true,
+    path: "/",
+    expires: expirationRefreshToken,
+    secure: true,
+  });
+  cookies().set({
+    name: "accessToken",
+    value: accessToken,
+    httpOnly: true,
+    path: "/",
+    expires: expirationAccessToken,
+  });
+}
+
 export async function POST(request: Request) {
+  console.log("api route request");
   const headersList = headers();
   const url: string = headersList.get("url")!;
   const switchCase: string = headersList.get("case")!;
   const req = await request.json();
-  console.log("refreshToken");
   const refreshToken = cookies().get("refreshToken")?.value!;
   switch (switchCase) {
     case "login": {
@@ -28,27 +53,8 @@ export async function POST(request: Request) {
       const resJson: serverResponse = await res.json();
       if (res.status === 200) {
         const { refreshToken, accessToken } = resJson;
+        cooketSetting(refreshToken, accessToken);
 
-        const decodedRefreshToken: any = jwt.decode(refreshToken);
-        const decodedAccessToken: any = jwt.decode(accessToken);
-
-        const expirationRefreshToken = new Date(decodedRefreshToken.exp * 1000);
-        const expirationAccessToken = new Date(decodedAccessToken.exp * 1000);
-
-        cookies().set({
-          name: "refreshToken",
-          value: resJson.refreshToken,
-          httpOnly: true,
-          path: "/",
-          expires: expirationRefreshToken,
-        });
-        cookies().set({
-          name: "accessToken",
-          value: resJson.accessToken,
-          httpOnly: true,
-          path: "/",
-          expires: expirationAccessToken,
-        });
         return new NextResponse(JSON.stringify({ success: true }), {
           status: 200,
         });
@@ -70,9 +76,8 @@ export async function POST(request: Request) {
         body: JSON.stringify(req),
       });
       const resJson = await res.json();
-      console.log(resJson);
       return new NextResponse(JSON.stringify(resJson), {
-        status: res.status,
+        status: 200,
       });
     }
     default:
