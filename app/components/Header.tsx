@@ -11,7 +11,7 @@ export default function Header() {
   const [loggedin, setLoggedin] = useState(true);
   const [show, setShow] = useState("hidden");
 
-  console.log(document.cookie.split("="));
+  //console.log(document.cookie.split("="));
 
   function mobileMenuHeandler() {
     //setMobileMenuOpen(!mobileMenuOpen);

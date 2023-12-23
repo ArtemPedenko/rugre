@@ -29,8 +29,7 @@ async function refreshAccessToken(login: string, refreshToken: string) {
       login: login,
     }),
   });
-  const result = await response.json();
-  return result;
+  return await response.json();
 }
 
 export { loginUser, refreshAccessToken };
