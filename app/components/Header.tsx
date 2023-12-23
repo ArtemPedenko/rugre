@@ -11,6 +11,8 @@ export default function Header() {
   const [loggedin, setLoggedin] = useState(true);
   const [show, setShow] = useState("hidden");
 
+  console.log(document.cookie.split("="));
+
   function mobileMenuHeandler() {
     //setMobileMenuOpen(!mobileMenuOpen);
     if (show === "animate-hide" || show === "hidden") {
