@@ -1,3 +1,3 @@
 export default function PageEditor() {
-	return <div>admin page</div>;
+  return <div>admin page</div>;
 }

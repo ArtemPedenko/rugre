@@ -28,7 +28,6 @@ function cooketSetting(refreshToken: string, accessToken: string) {
 }
 
 export async function POST(request: Request) {
-  console.log("api route request");
   const headersList = headers();
   const url: string = headersList.get("url")!;
   const switchCase: string = headersList.get("case")!;

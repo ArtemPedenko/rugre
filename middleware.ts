@@ -14,35 +14,25 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
-  if (refreshToken) {
-    const refreshTokenValid = isTokenValid(refreshToken, "root");
-    //проверяем на валидность рефреш токен
-    if (refreshTokenValid) {
-      if (accessToken) {
-        const accessTokenValid = isTokenValid(accessToken, "root");
-        //если аксес токен не валидный или осталось ему жить меньше минуты, получаем новый
-        if (!accessTokenValid || accessTokenValid.exp < 60000) {
-          console.log("аксесс токен не валидный");
-          return await fRefreshAccessToken(
-            refreshTokenValid.login,
-            refreshToken,
-          );
-        }
-        //если нет access токена, получаем новый
-      } else {
-        console.log("нет аксес токена");
-        return await fRefreshAccessToken(refreshTokenValid.login, refreshToken);
-      }
-      //если рефреш токен не валиден, идем на логин
-    } else {
-      console.log("рефреш не валиден");
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    //если рефреш токена нет, идем на логин
-  } else {
-    console.log("нет рефреша");
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (!refreshToken) {
+    return NextResponse.rewrite(new URL("/login", request.url));
   }
+
+  const isRefreshTokenValid = isTokenValid(refreshToken, "root");
+
+  if (!isRefreshTokenValid || isRefreshTokenValid.exp < 0) {
+    return NextResponse.rewrite(new URL("/login", request.url));
+  }
+  if (!accessToken) {
+    return await fRefreshAccessToken(isRefreshTokenValid.login, refreshToken);
+  }
+
+  const isAccessTokenValid = isTokenValid(accessToken, "root");
+
+  if (!isAccessTokenValid || isAccessTokenValid.exp < 60000) {
+    return await fRefreshAccessToken(isRefreshTokenValid.login, refreshToken);
+  }
+  console.log("с токенами все заебись");
 }
 async function fRefreshAccessToken(login: string, refreshToken: string) {
   const res = await refreshAccessToken(login, refreshToken);
@@ -53,7 +43,6 @@ async function fRefreshAccessToken(login: string, refreshToken: string) {
 
   const newExpirationRefreshToken = new Date(newDecodedRefreshToken.exp * 1000);
   const newExpirationAccessToken = new Date(newDecodedAccessToken.exp * 1000);
-  console.log(res);
   response.cookies.set({
     name: "refreshToken",
     value: res.refreshToken,

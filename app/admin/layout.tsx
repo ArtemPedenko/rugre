@@ -1,14 +1,13 @@
 import HeaderAdmin from "./HeaderAdmin";
-
 export default function AdminLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-	return (
-		<div>
-			<HeaderAdmin />
-			{children}
-		</div>
-	);
+  return (
+    <div>
+      <HeaderAdmin />
+      {children}
+    </div>
+  );
 }
