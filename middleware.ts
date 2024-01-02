@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { refreshAccessToken } from "./app/utils/services/userService";
+import { refreshAccessToken } from "@/app/utils/services/userService";
 import { isTokenValid } from "@/app/utils/services/jwtService";
 
 export const config = {
@@ -32,8 +32,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   if (!isAccessTokenValid || isAccessTokenValid.exp < 60000) {
     return await fRefreshAccessToken(isRefreshTokenValid.login, refreshToken);
   }
-  console.log("с токенами все заебись");
 }
+
 async function fRefreshAccessToken(login: string, refreshToken: string) {
   const res = await refreshAccessToken(login, refreshToken);
   const response = NextResponse.next();

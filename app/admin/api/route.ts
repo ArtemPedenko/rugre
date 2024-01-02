@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
 
-function cooketSetting(refreshToken: string, accessToken: string) {
+function cookieSetting(refreshToken: string, accessToken: string) {
   const decodedRefreshToken: any = jwt.decode(refreshToken);
   const decodedAccessToken: any = jwt.decode(accessToken);
 
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       const resJson: serverResponse = await res.json();
       if (res.status === 200) {
         const { refreshToken, accessToken } = resJson;
-        cooketSetting(refreshToken, accessToken);
+        cookieSetting(refreshToken, accessToken);
 
         return new NextResponse(JSON.stringify({ success: true }), {
           status: 200,
