@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
@@ -30,14 +30,16 @@ function cookieSetting(refreshToken: string, accessToken: string) {
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const headersList = headers();
   const url: string = headersList.get("url")!;
   const switchCase: string = headersList.get("case")!;
-  const req = await request.json();
   const refreshToken = cookies().get("refreshToken")?.value!;
+  const accessToken = cookies().get("accessToken")?.value!;
+
   switch (switchCase) {
     case "login": {
+      const req = await request.json();
       const res = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -68,6 +70,7 @@ export async function POST(request: Request) {
     }
 
     case "refreshAccessToken": {
+      const req = await request.json();
       const res = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -81,6 +84,25 @@ export async function POST(request: Request) {
       return new NextResponse(JSON.stringify(resJson), {
         status: 200,
       });
+    }
+
+    case "fileUpload": {
+      const formData = await request.formData();
+      const file = formData.get("file");
+      const data = new FormData();
+      if (file) {
+        data.append("file", file);
+      }
+      const res = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Cookie: `accessToken=${accessToken};`,
+        },
+        body: data,
+      });
+      const response = await res.json();
+      return new NextResponse(JSON.stringify(response));
     }
     default:
       return new NextResponse(JSON.stringify({ success: false }));

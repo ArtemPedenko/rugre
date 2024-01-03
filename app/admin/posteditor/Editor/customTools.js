@@ -27,7 +27,6 @@ class ImageName {
     button.addEventListener("click", async function () {
       let formData = new FormData();
       formData.append("file", input.files[0]);
-      formData.append("user", "root");
       const result = await sendFile(formData);
       input.type = "text";
       input.value = result.name;
