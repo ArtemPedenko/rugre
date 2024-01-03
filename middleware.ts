@@ -57,6 +57,7 @@ async function fRefreshAccessToken(login: string, refreshToken: string) {
     httpOnly: true,
     path: "/",
     expires: newExpirationAccessToken,
+    secure: true,
   });
   return response;
 }

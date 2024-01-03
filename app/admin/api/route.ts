@@ -17,6 +17,7 @@ function cookieSetting(refreshToken: string, accessToken: string) {
     path: "/",
     expires: expirationRefreshToken,
     secure: true,
+    sameSite: "none",
   });
   cookies().set({
     name: "accessToken",
@@ -24,6 +25,8 @@ function cookieSetting(refreshToken: string, accessToken: string) {
     httpOnly: true,
     path: "/",
     expires: expirationAccessToken,
+    secure: true,
+    sameSite: "none",
   });
 }
 
@@ -80,6 +83,21 @@ export async function POST(request: Request) {
       });
     }
     default:
-      return new NextResponse(JSON.stringify({ sucess: false }));
+      return new NextResponse(JSON.stringify({ success: false }));
   }
+}
+
+export async function GET(request: Request) {
+  const headersList = headers();
+  const accessToken = cookies().get("accessToken")?.value!;
+  const url: string = headersList.get("url")!;
+  const res = await fetch(url, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Cookie: `accessToken=${accessToken};`,
+    },
+  });
+  const response = await res.json();
+  return new NextResponse(JSON.stringify(response));
 }

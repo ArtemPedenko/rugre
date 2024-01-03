@@ -1,4 +1,5 @@
 import HeaderAdmin from "./HeaderAdmin";
+
 export default function AdminLayout({
   children,
 }: {
