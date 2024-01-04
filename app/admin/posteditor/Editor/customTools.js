@@ -1,4 +1,4 @@
-import { sendFile } from "@/app/utils/services/fileService";
+import { sendImage, sendFile } from "@/app/utils/services/fileService";
 class ImageName {
   static get toolbox() {
     return {
@@ -27,9 +27,10 @@ class ImageName {
     button.addEventListener("click", async function () {
       let formData = new FormData();
       formData.append("file", input.files[0]);
-      const result = await sendFile(formData);
+      const result = await sendImage(formData);
       input.type = "text";
       input.value = result.name;
+      wrapper.removeChild(button);
     });
     return wrapper;
   }
@@ -76,8 +77,13 @@ class FileName {
     input.type = "file";
     input.placeholder = "Paste an file name...";
     input.value = this.data && this.data.url ? this.data.url : "";
-    button.addEventListener("click", function () {
-      console.log("Кнопка была нажата!");
+    button.addEventListener("click", async function () {
+      let formData = new FormData();
+      formData.append("file", input.files[0]);
+      const result = await sendFile(formData);
+      input.type = "text";
+      input.value = result.name;
+      wrapper.removeChild(button);
     });
 
     return wrapper;
