@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
 
+export const revalidate = 1;
+
 function cookieSetting(refreshToken: string, accessToken: string) {
   const decodedRefreshToken: any = jwt.decode(refreshToken);
   const decodedAccessToken: any = jwt.decode(accessToken);
