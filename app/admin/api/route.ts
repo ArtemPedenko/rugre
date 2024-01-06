@@ -78,7 +78,26 @@ export async function POST(request: NextRequest) {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Cookie: refreshToken,
+          Cookie: accessToken,
+        },
+        body: JSON.stringify(req),
+      });
+      const resJson = await res.json();
+      return new NextResponse(JSON.stringify(resJson), {
+        status: 200,
+      });
+    }
+
+    case "post": {
+      const req = await request.json();
+      console.log("api route");
+      console.log(req);
+      const res = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `accessToken=${accessToken};`,
         },
         body: JSON.stringify(req),
       });
