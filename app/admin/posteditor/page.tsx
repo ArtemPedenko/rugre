@@ -29,7 +29,7 @@ export default function PageEditor() {
   return (
     <div>
       <div className="flex gap-2 max-w-[650px] h-[40px] mx-auto items-center">
-        Date
+        Date:
         <input
           placeholder={"enter date of post"}
           onChange={(e) => setDate(e.target.value)}

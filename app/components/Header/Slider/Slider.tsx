@@ -21,8 +21,6 @@ const Slider = () => {
       }}
       modules={[EffectFade, Autoplay, Pagination]}
       ref={sliderRef}
-     // slidesPerView={1}
-      //slidesPerGroup={1}
       spaceBetween="30px"
       loop={true}
       className="swiper-container-slider"

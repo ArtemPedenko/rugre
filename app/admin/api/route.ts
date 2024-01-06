@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Cookie: accessToken,
+          Cookie: refreshToken,
         },
         body: JSON.stringify(req),
       });
@@ -136,6 +136,22 @@ export async function GET(request: Request) {
   const url: string = headersList.get("url")!;
   const res = await fetch(url, {
     method: "GET",
+    credentials: "include",
+    headers: {
+      Cookie: `accessToken=${accessToken};`,
+    },
+  });
+  const response = await res.json();
+  return new NextResponse(JSON.stringify(response));
+}
+
+export async function DELETE(request: Request) {
+  const headersList = headers();
+  const accessToken = cookies().get("accessToken")?.value!;
+  const url: string = headersList.get("url")!;
+  console.log("delete api route");
+  const res = await fetch(url, {
+    method: "DELETE",
     credentials: "include",
     headers: {
       Cookie: `accessToken=${accessToken};`,

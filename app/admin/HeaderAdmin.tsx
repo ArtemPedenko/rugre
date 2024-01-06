@@ -1,29 +1,38 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navDictionary = [
+  { ref: "/", name: "Home" },
+  { ref: "/admin", name: "Admin" },
+  { ref: "/admin/posts", name: "Posts" },
+  { ref: "/admin/posteditor", name: "Post editor" },
+  { ref: "/admin/videos", name: "Videos" },
+  { ref: "/admin/images", name: "Images" },
+  { ref: "/admin/files", name: "Files" },
+];
 
 export default function HeaderAdmin() {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <div className="flex gap-2 justify-center">
-      <Link href={"/"} prefetch={false}>
-        Home
-      </Link>
-      <Link href={"/admin"} prefetch={false}>
-        Admin
-      </Link>
-      <Link href={"/admin/posts"} prefetch={false}>
-        Posts
-      </Link>
-      <Link href={"/admin/posteditor"} prefetch={false}>
-        Post editor
-      </Link>
-      <Link href={"/admin/videos"} prefetch={false}>
-        Videos
-      </Link>
-      <Link href={"/admin/images"} prefetch={false}>
-        Images
-      </Link>
-      <Link href={"/admin/files"} prefetch={false}>
-        Files
-      </Link>
+      {navDictionary.map((item, index) => {
+        return (
+          <Link
+            href={item.ref}
+            prefetch={false}
+            key={index}
+            className={`${
+              pathname === item.ref
+                ? "border border-black px-2 rounded"
+                : "hover:border border-black px-2 rounded"
+            }`}
+          >
+            {item.name}
+          </Link>
+        );
+      })}
     </div>
   );
 }
