@@ -23,8 +23,6 @@ async function deleteItem(id: string, slug: string) {
       url: `https://arthttp.ru/api/${roteDictionary[slug]}/${id}`,
     },
   });
-  const response = await res.json();
-  console.log(response);
 }
 export default function AdminSlug({ params }: { params: { slug: string } }) {
   const [data, setData] = useState([]);
