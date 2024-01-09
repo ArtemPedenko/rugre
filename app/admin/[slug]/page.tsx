@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Images from "./sections/Images";
-import Files from "./sections/Files";
+import Images from "@/app/admin/[slug]/sections/Images";
+import Files from "@/app/admin/[slug]/sections/Files";
+import Posts from "@/app/admin/[slug]/sections/Posts";
 
 export const revalidate = 1;
 
@@ -49,7 +50,7 @@ async function deleteItem(id: string, slug: string) {
   });
 }
 export default function AdminSlug({ params }: { params: { slug: string } }) {
-  const [data, setData] = useState<Image[]>([]);
+  const [data, setData] = useState<any>([]);
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
@@ -72,6 +73,10 @@ export default function AdminSlug({ params }: { params: { slug: string } }) {
       )}
       {params.slug === "files" && data.length !== 0 && (
         <Files data={data} deleteHandler={deleteHandler} />
+      )}
+
+      {params.slug === "posts" && data.length !== 0 && (
+        <Posts data={data} deleteHandler={deleteHandler} />
       )}
     </div>
   );

@@ -1,10 +1,12 @@
-interface Image {
+import React from "react";
+
+interface Data {
   id: number;
   name: string;
 }
 
 interface Props {
-  data: Image[];
+  data: Data[];
   deleteHandler: Function;
 }
 

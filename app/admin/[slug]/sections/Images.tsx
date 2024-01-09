@@ -1,4 +1,4 @@
-import { number } from "yup";
+import React from "react";
 
 interface Image {
   id: number;
