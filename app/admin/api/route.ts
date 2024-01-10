@@ -33,6 +33,8 @@ function cookieSetting(refreshToken: string, accessToken: string) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log("refreshToken");
+
   const headersList = headers();
   const url: string = headersList.get("url")!;
   const switchCase: string = headersList.get("case")!;
@@ -90,8 +92,6 @@ export async function POST(request: NextRequest) {
 
     case "post": {
       const req = await request.json();
-      console.log("api route");
-      console.log(req);
       const res = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -149,13 +149,30 @@ export async function DELETE(request: Request) {
   const headersList = headers();
   const accessToken = cookies().get("accessToken")?.value!;
   const url: string = headersList.get("url")!;
-  console.log("delete api route");
   const res = await fetch(url, {
     method: "DELETE",
     credentials: "include",
     headers: {
       Cookie: `accessToken=${accessToken};`,
     },
+  });
+  const response = await res.json();
+  return new NextResponse(JSON.stringify(response));
+}
+
+export async function PUT(request: Request) {
+  const req = await request.json();
+  const headersList = headers();
+  const accessToken = cookies().get("accessToken")?.value!;
+  const url: string = headersList.get("url")!;
+  const res = await fetch(url, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `accessToken=${accessToken};`,
+    },
+    body: JSON.stringify(req),
   });
   const response = await res.json();
   return new NextResponse(JSON.stringify(response));

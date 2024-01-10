@@ -23,13 +23,14 @@ async function refreshAccessToken(login: string, refreshToken: string) {
       credentials: "include",
       url: "https://arthttp.ru/api/user/refresh-token",
       case: "refreshAccessToken",
-      cookie: `refreshToken=${refreshToken}`,
+      Cookie: `refreshToken=${refreshToken}`,
     },
     body: JSON.stringify({
       login: login,
     }),
   });
-  return await response.json();
+  const res = await response.json();
+  return res;
 }
 
 export { loginUser, refreshAccessToken };

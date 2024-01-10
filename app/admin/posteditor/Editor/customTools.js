@@ -15,13 +15,17 @@ class ImageName {
     const wrapper = document.createElement("div");
     const input = document.createElement("input");
     const button = document.createElement("button");
+    const buttonSwitch = document.createElement("button");
 
     wrapper.classList.add("simple-image");
     wrapper.appendChild(input);
-    wrapper.appendChild(button);
+    /*   wrapper.appendChild(button); */
+    wrapper.appendChild(buttonSwitch);
+
     button.classList.add("button-upload");
+    buttonSwitch.classList.add("button-upload");
     button.innerHTML = "загрузить";
-    input.type = "file";
+    buttonSwitch.innerHTML = "хочу загрузить файл";
     input.placeholder = "Paste an image name...";
     input.value = this.data && this.data.url ? this.data.url : "";
     button.addEventListener("click", async function () {
@@ -31,6 +35,11 @@ class ImageName {
       input.type = "text";
       input.value = result.name;
       wrapper.removeChild(button);
+    });
+    buttonSwitch.addEventListener("click", function () {
+      input.type = "file";
+      wrapper.appendChild(button);
+      wrapper.removeChild(buttonSwitch);
     });
     return wrapper;
   }
@@ -68,15 +77,20 @@ class FileName {
     const wrapper = document.createElement("div");
     const input = document.createElement("input");
     const button = document.createElement("button");
+    const buttonSwitch = document.createElement("button");
 
     wrapper.classList.add("simple-image");
     wrapper.appendChild(input);
-    wrapper.appendChild(button);
+    wrapper.appendChild(buttonSwitch);
+
     button.classList.add("button-upload");
+    buttonSwitch.classList.add("button-upload");
     button.innerHTML = "загрузить";
-    input.type = "file";
+    buttonSwitch.innerHTML = "хочу загрузить файл";
+
     input.placeholder = "Paste an file name...";
     input.value = this.data && this.data.url ? this.data.url : "";
+
     button.addEventListener("click", async function () {
       let formData = new FormData();
       formData.append("file", input.files[0]);
@@ -84,6 +98,12 @@ class FileName {
       input.type = "text";
       input.value = result.name;
       wrapper.removeChild(button);
+    });
+
+    buttonSwitch.addEventListener("click", function () {
+      input.type = "file";
+      wrapper.appendChild(button);
+      wrapper.removeChild(buttonSwitch);
     });
 
     return wrapper;

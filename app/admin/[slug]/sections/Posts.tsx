@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface Data {
@@ -40,17 +41,19 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
                 if (item.type === "header") {
                   return (
                     <div key={item.id} className="flex gap-4">
-                      <p>{item.data.text}</p>
-                      <button
-                        className="border border-black rounded px-2"
-                        onClick={() => deleteHandler(post.id)}
-                      >
-                        delete
-                      </button>
+                      <Link href={`posteditor/posts/${post.id}`}>
+                        {item.data.text}
+                      </Link>
                     </div>
                   );
                 }
               })}
+              <button
+                className="border border-black rounded px-2"
+                onClick={() => deleteHandler(post.id)}
+              >
+                delete
+              </button>
             </div>
           );
         })}
