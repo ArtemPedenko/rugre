@@ -33,12 +33,10 @@ function cookieSetting(refreshToken: string, accessToken: string) {
 }
 
 export async function POST(request: NextRequest) {
-  console.log("refreshToken");
-
   const headersList = headers();
   const url: string = headersList.get("url")!;
   const switchCase: string = headersList.get("case")!;
-  const refreshToken = cookies().get("refreshToken")?.value!;
+  //const refreshToken = cookies().get("refreshToken")?.value!;
   const accessToken = cookies().get("accessToken")?.value!;
 
   switch (switchCase) {
@@ -71,23 +69,6 @@ export async function POST(request: NextRequest) {
           status: res.status,
         });
       }
-    }
-
-    case "refreshAccessToken": {
-      const req = await request.json();
-      const res = await fetch(url, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: refreshToken,
-        },
-        body: JSON.stringify(req),
-      });
-      const resJson = await res.json();
-      return new NextResponse(JSON.stringify(resJson), {
-        status: 200,
-      });
     }
 
     case "post": {

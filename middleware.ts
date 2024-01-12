@@ -6,7 +6,7 @@ import { refreshAccessToken } from "@/app/utils/services/userService";
 import { isTokenValid } from "@/app/utils/services/jwtService";
 
 export const config = {
-  matcher: "/admin/((?!api|_next/static|_next/image|favicon.ico).*)",
+  matcher: "/admin((?!/api|_next/static|_next/image|favicon.ico).*)",
 };
 
 export async function middleware(request: NextRequest, response: NextResponse) {

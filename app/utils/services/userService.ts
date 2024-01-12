@@ -16,7 +16,7 @@ async function loginUser(login: string, password: string) {
 
 //https://arthttp.ru/api/user/refresh-token
 async function refreshAccessToken(login: string, refreshToken: string) {
-  const response = await fetch(`${process.env.BASE_URL}/admin/api`, {
+  const response = await fetch("https://arthttp.ru/api/user/refresh-token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
