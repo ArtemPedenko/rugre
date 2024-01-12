@@ -11,7 +11,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
   const [data, setData] = useState();
   const [date, setDate] = useState("");
 
-  const [a, setA] = useState();
+  const [view, setView] = useState();
 
   useEffect(() => {
     if (params.slug[0] !== "newpost") {
@@ -19,7 +19,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
         console.log(result);
         setDate(result.date);
         setData(result.content);
-        setA(result.content.blocks[1].data.text);
+        setView({ date: result.date, content: result.content.blocks });
         return result;
       });
     }
@@ -45,7 +45,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
         ) : null}
 
         <button
-          onClick={() => console.log({ date: date, content: data })}
+          onClick={() => console.log(view)}
           className="border border-color-black w-[150px] h-[50px]"
         >
           console log content data
@@ -65,7 +65,35 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
           </button>
         ) : null}
       </div>
-      <div>{a}</div>
+      <div className="border-t border-black flex flex-col justify-center items-center">
+        Post preview
+        {view ? (
+          <div className="flex flex-col justify-center items-center max-w-[650px] w-full">
+            <h2 className="text-bold text-[22px]">{view.date}</h2>
+            <div className="flex flex-col justify-center items-center gap-4">
+              {view.content.map((item) => {
+                if (item.type === "header") {
+                  return (
+                    <h2 className="text-bold text-[22px]">{item.data.text}</h2>
+                  );
+                }
+                if (item.type === "paragraph") {
+                  return <p>{item.data.text}</p>;
+                }
+                if (item.type === "image") {
+                  return (
+                    <img
+                      className="w-full"
+                      alt=""
+                      src={`https://arthttp.ru/images/${item.data.url}`}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </div>
+        ) : null}
+      </div>
     </>
   );
 }
