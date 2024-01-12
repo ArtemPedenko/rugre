@@ -74,15 +74,18 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
               {view.content.map((item) => {
                 if (item.type === "header") {
                   return (
-                    <h2 className="text-bold text-[22px]">{item.data.text}</h2>
+                    <h2 key={item.id} className="text-bold text-[22px]">
+                      {item.data.text}
+                    </h2>
                   );
                 }
                 if (item.type === "paragraph") {
-                  return <p>{item.data.text}</p>;
+                  return <p key={item.id}>{item.data.text}</p>;
                 }
                 if (item.type === "image") {
                   return (
                     <img
+                      key={item.id}
                       className="w-full"
                       alt=""
                       src={`https://arthttp.ru/images/${item.data.url}`}
