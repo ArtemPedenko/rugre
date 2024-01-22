@@ -22,7 +22,7 @@ const Slider = () => {
       modules={[EffectFade, Autoplay, Pagination]}
       ref={sliderRef}
       spaceBetween="30px"
-      loop={true}
+      // loop={true}
       className="swiper-container-slider"
       autoplay={{
         delay: 5000,
