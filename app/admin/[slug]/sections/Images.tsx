@@ -12,9 +12,9 @@ interface Props {
 
 const Images: React.FC<Props> = ({ data, deleteHandler }) => {
   return (
-    <div className="px-8">
-      <div className="flex flex-col">
-        {data.map((item: any) => {
+    <div className="px-8 ">
+      <div className="flex flex-col gap-3">
+        {data.map((item: Image) => {
           return (
             <div className="flex gap-4" key={item.id}>
               <img

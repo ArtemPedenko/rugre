@@ -31,9 +31,8 @@ interface Props {
 const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
   return (
     <div className="px-8">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-3">
         {data.map((post: Post, index: number) => {
-          console.log(post);
           return (
             <div className="flex gap-4" key={index}>
               <p>{post.date}</p>
@@ -49,7 +48,7 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
                 }
               })}
               <button
-                className="border border-black rounded px-2"
+                className="border border-black rounded px-2 max-h-[25px]"
                 onClick={() => deleteHandler(post.id)}
               >
                 delete
