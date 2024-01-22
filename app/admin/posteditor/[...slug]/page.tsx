@@ -2,6 +2,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import Preview from "./components/Preview";
 
 const Editor = dynamic(() => import("../Editor/Editor"), {
   ssr: false,
@@ -45,7 +46,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
         ) : null}
 
         <button
-          onClick={() => console.log(view)}
+          onClick={() => console.log(data)}
           className="border border-color-black w-[150px] h-[50px]"
         >
           console log content data
@@ -67,35 +68,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
       </div>
       <div className="border-t border-black flex flex-col justify-center items-center">
         Post preview
-        {view ? (
-          <div className="flex flex-col justify-center items-center max-w-[650px] w-full">
-            <h2 className="text-bold text-[22px]">{view.date}</h2>
-            <div className="flex flex-col justify-center items-center gap-4">
-              {view.content.map((item) => {
-                if (item.type === "header") {
-                  return (
-                    <h2 key={item.id} className="text-bold text-[22px]">
-                      {item.data.text}
-                    </h2>
-                  );
-                }
-                if (item.type === "paragraph") {
-                  return <p key={item.id}>{item.data.text}</p>;
-                }
-                if (item.type === "image") {
-                  return (
-                    <img
-                      key={item.id}
-                      className="w-full"
-                      alt=""
-                      src={`https://arthttp.ru/images/${item.data.url}`}
-                    />
-                  );
-                }
-              })}
-            </div>
-          </div>
-        ) : null}
+        {data && date && <Preview date={date} editorData={data} />}
       </div>
     </>
   );
@@ -111,7 +84,7 @@ async function getData(slug: string[], setDate: Function) {
     },
   });
   const response = await res.json();
-  setDate(response.date);
+  //setDate(response.date);
   return response;
 }
 
