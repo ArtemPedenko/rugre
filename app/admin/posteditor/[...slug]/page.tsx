@@ -2,11 +2,14 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import Preview from "./components/Preview";
+import EditorPreview from "../../../components/admin/EditorPreview";
 
-const Editor = dynamic(() => import("../Editor/Editor"), {
-  ssr: false,
-});
+const Editor = dynamic(
+  () => import("../../../components/admin/Editor/Editor"),
+  {
+    ssr: false,
+  }
+);
 
 export default function PageEditor({ params }: { params: { slug: string } }) {
   const [data, setData] = useState();
@@ -69,7 +72,7 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
       </div>
       <div className="border-t border-black flex flex-col justify-center items-center">
         Post preview
-        {data && date && <Preview date={date} editorData={data} />}
+        {data && date && <EditorPreview date={date} editorData={data} />}
       </div>
     </>
   );

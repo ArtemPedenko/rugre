@@ -14,7 +14,7 @@ type PreviewProps = {
   };
 };
 
-export default function Preview(props: PreviewProps) {
+export default function EditorPreview(props: PreviewProps) {
   const { date, editorData } = props;
   /* console.log("date", props.date);
   console.log(props.editorData);
