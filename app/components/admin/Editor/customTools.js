@@ -1,4 +1,5 @@
 import { sendImage, sendFile } from "@/app/utils/services/fileService";
+
 class ImageName {
   static get toolbox() {
     return {
@@ -126,4 +127,46 @@ class FileName {
   }
 }
 
-export { ImageName, FileName };
+class Video {
+  static get toolbox() {
+    return {
+      title: "Video",
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 -960 960 960" width="24"><path d="m380-300 280-180-280-180v360ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/></svg>',
+    };
+  }
+
+  constructor({ data }) {
+    this.data = data;
+  }
+
+  render() {
+    const wrapper = document.createElement("div");
+    const input = document.createElement("input");
+
+    wrapper.classList.add("simple-image");
+    wrapper.appendChild(input);
+
+    input.placeholder = "Paste an file name...";
+    input.value = this.data && this.data.url ? this.data.url : "";
+
+    return wrapper;
+  }
+
+  save(blockContent) {
+    const input = blockContent.querySelector("input");
+
+    return {
+      url: input.value.trim(),
+    };
+  }
+
+  validate(savedData) {
+    if (!savedData.url.trim()) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
+export { ImageName, FileName, Video };
