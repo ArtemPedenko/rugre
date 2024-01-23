@@ -31,5 +31,5 @@ export default function Editor({ data, onChange, holder }) {
     };
   }, []);
 
-  return <div id={holder} className="prose max-w-full border border-black" />;
+  return <div id={holder} className="prose max-w-full" />;
 }

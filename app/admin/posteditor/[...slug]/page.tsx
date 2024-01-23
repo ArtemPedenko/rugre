@@ -3,6 +3,11 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import EditorPreview from "../../../components/admin/EditorPreview";
+import {
+  getOneData,
+  uploadData,
+  changeData,
+} from "@/app/utils/services/dataService";
 
 const Editor = dynamic(
   () => import("../../../components/admin/Editor/Editor"),
@@ -15,26 +20,30 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
   const [data, setData] = useState();
   const [date, setDate] = useState("");
 
-  //const [view, setView] = useState();
-
   useEffect(() => {
     if (params.slug[0] !== "newpost") {
-      getData(params.slug).then((result) => {
+      getOneData(params.slug).then((result) => {
         console.log(result);
         setDate(result.date);
         setData(result.content);
-        //setView({ date: result.date, content: result.content.blocks });
         return result;
       });
     }
   }, []);
 
   return (
-    <>
+    <div className="my-8">
+      {/* <button
+    onClick={() => console.log(data)}
+    className="border border-color-black w-[150px] h-[50px]"
+  >
+    console log content data
+  </button>*/}
       <div>
         <div className="flex gap-2 max-w-[650px] h-[40px] mx-auto items-center">
           Date:
           <input
+            className="w-[100px] border border-black"
             placeholder={"enter date of post"}
             onChange={(e) => setDate(e.target.value)}
             value={date}
@@ -48,17 +57,11 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
           <Editor data={data} onChange={setData} holder="editorjs-container" />
         ) : null}
 
-        {/* <button
-          onClick={() => console.log(data)}
-          className="border border-color-black w-[150px] h-[50px]"
-        >
-          console log content data
-        </button>*/}
-        {params.slug[0] === "newpost" ? (
+        {params.slug[0] === "newpost" && (
           <button onClick={() => uploadData({ date: date, content: data })}>
             upload
           </button>
-        ) : null}
+        )}
         {data && params.slug[0] !== "newpost" && (
           <button
             className="mx-8"
@@ -70,52 +73,10 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
           </button>
         )}
       </div>
-      <div className="border-t border-black flex flex-col justify-center items-center">
-        Post preview
+      <div className="flex flex-col justify-center items-center border-t border-black">
+        Preview
         {data && date && <EditorPreview date={date} editorData={data} />}
       </div>
-    </>
+    </div>
   );
-}
-
-async function getData(slug: string[]) {
-  const res = await fetch("/admin/api", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug[0]}/${slug[1]}`,
-    },
-  });
-  return await res.json();
-}
-
-async function uploadData(body: any) {
-  const res = await fetch("/admin/api", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      url: "https://arthttp.ru/api/posts",
-      case: "post",
-    },
-    body: JSON.stringify(body),
-  });
-  const response = await res.json();
-  console.log(response);
-}
-
-async function changeData(body: any, slug: string[]) {
-  const res = await fetch("/admin/api", {
-    method: "PUT",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug[0]}/${slug[1]}`,
-      case: "post",
-    },
-    body: JSON.stringify(body),
-  });
-  const response = await res.json();
-  console.log(response);
 }

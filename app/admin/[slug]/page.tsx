@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Images from "@/app/admin/[slug]/sections/Images";
 import Files from "@/app/admin/[slug]/sections/Files";
 import Posts from "@/app/admin/[slug]/sections/Posts";
-import { getData, deleteItem } from "@/app/utils/services/dataService";
+import { getAllData, deleteItem } from "@/app/utils/services/dataService";
 
 export const revalidate = 1;
 
@@ -25,7 +25,7 @@ export default function AdminSlug({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     try {
-      getData(roteDictionary[params.slug]).then((result) => setData(result));
+      getAllData(roteDictionary[params.slug]).then((result) => setData(result));
     } catch (e) {
       console.log(e);
     }
