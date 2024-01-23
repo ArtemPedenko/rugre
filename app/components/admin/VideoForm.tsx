@@ -8,14 +8,20 @@ interface CustomFormData extends FormData {
   fileName?: string;
 }
 
+interface Props {
+  imageName: string;
+  setImageName: Function;
+}
+
 async function sendImageToServer(formData: CustomFormData) {
   const result = await sendImage(formData);
   return result;
 }
 
-export default function VideoForm() {
+export default function VideoForm(props: Props) {
+  const { imageName, setImageName } = props;
   const inputRef = useRef(null);
-  const [inputValue, setInputValue] = useState("");
+  //const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState(false);
   let formData = new FormData();
 
@@ -25,7 +31,7 @@ export default function VideoForm() {
       console.log(inputRef.current.files[0]);
       formData.append("file", inputRef.current.files[0]);
       sendImageToServer(formData).then((e) => {
-        setInputValue(e.name);
+        setImageName(e.name);
         setInputType(!inputType);
       });
     }
@@ -42,7 +48,7 @@ export default function VideoForm() {
       )}
       {inputType && (
         <input
-          value={inputValue}
+          value={imageName}
           onChange={(e) => setInputValue(e.target.value)}
           className="border border-black w-[300px]"
         />

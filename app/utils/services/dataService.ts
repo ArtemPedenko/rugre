@@ -53,6 +53,22 @@ async function uploadData(body: any) {
   console.log(response);
 }
 
+async function uploadVideo(body: any) {
+  const res = await fetch("/admin/api", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      url: "https://arthttp.ru/api/videos",
+      case: "post",
+    },
+    body: JSON.stringify(body),
+  });
+  const response = await res.json();
+  return response;
+  console.log(response);
+}
+
 async function changeData(body: any, slug: string[]) {
   const res = await fetch("/admin/api", {
     method: "PUT",
@@ -68,4 +84,11 @@ async function changeData(body: any, slug: string[]) {
   console.log(response);
 }
 
-export { getAllData, getOneData, deleteItem, uploadData, changeData };
+export {
+  getAllData,
+  getOneData,
+  deleteItem,
+  uploadData,
+  changeData,
+  uploadVideo,
+};
