@@ -42,7 +42,7 @@ export default function Videos() {
         добавить новое видео
       </button>
       {data && (
-        <div className="flex flex-col gap-8 ">
+        <div className="flex flex-col gap-8 w-[90%] mx-auto">
           {data.map((item: VideoObject) => {
             return (
               <VideoItem

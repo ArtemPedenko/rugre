@@ -35,19 +35,24 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
       <div className="flex flex-col gap-3">
         {data.map((post: Post, index: number) => {
           return (
-            <div className="flex gap-4  items-start" key={index}>
-              <p>{post.date}</p>
-              {post.content.blocks.map((item: Block) => {
-                if (item.type === "header") {
-                  return (
-                    <div key={item.id} className="flex gap-4">
-                      <Link href={`posteditor/posts/${post.id}`}>
-                        {item.data.text}
-                      </Link>
-                    </div>
-                  );
-                }
-              })}
+            <div
+              className="flex gap-4 items-start justify-between max-h-[50px] overflow-hidden"
+              key={index}
+            >
+              <div className="flex gap-4 w-[80%]">
+                <p>{post.date}</p>
+                {post.content.blocks.map((item: Block) => {
+                  if (item.type === "header") {
+                    return (
+                      <div key={item.id} className="flex gap-4">
+                        <Link href={`posteditor/posts/${post.id}`}>
+                          {item.data.text}
+                        </Link>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
               <div className="w-[100px] h-[50px] flex justify-center items-start">
                 <Button onClick={() => deleteHandler(post.id)}>удалить</Button>
               </div>

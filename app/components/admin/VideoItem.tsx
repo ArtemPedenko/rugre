@@ -16,7 +16,7 @@ interface Props {
 export default function VideoItem(props: Props) {
   const { videoObject, deleteHandler } = props;
   return (
-    <div className="mx-8 flex justify-center items-center gap-4 border border-black">
+    <div className="w-full flex justify-between items-center gap-4">
       <div>{videoObject.title}</div>
       <div>{videoObject.category}</div>
       <div>{videoObject.videoUrl}</div>

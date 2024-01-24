@@ -36,7 +36,7 @@ export default function AdminSlug({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="px-8 my-10">
+    <div className="px-8 my-10 w-[90%] mx-auto">
       {/*<button onClick={() => console.log(data)}>console.log</button>*/}
       {params.slug === "images" && data.length !== 0 && (
         <Images data={data} deleteHandler={deleteHandler} />
