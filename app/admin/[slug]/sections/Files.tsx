@@ -1,3 +1,4 @@
+import Button from "@/app/components/admin/Button";
 import React from "react";
 
 interface File {
@@ -17,9 +18,14 @@ const Files: React.FC<Props> = ({ data, deleteHandler }) => {
         {data.map((item: File) => {
           console.log(item);
           return (
-            <div className="flex gap-4" key={item.id}>
+            <div
+              className="flex gap-4 justify-center items-center"
+              key={item.id}
+            >
               {item.name}
-              <button onClick={() => deleteHandler(item.id)}>delete</button>
+              <div className="w-[100px] h-[50px] flex justify-center items-center">
+                <Button onClick={() => deleteHandler(item.id)}>удалить</Button>
+              </div>
             </div>
           );
         })}

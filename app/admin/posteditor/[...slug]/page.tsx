@@ -8,6 +8,7 @@ import {
   uploadData,
   changeData,
 } from "@/app/utils/services/dataService";
+import Button from "@/app/components/admin/Button";
 
 const Editor = dynamic(
   () => import("../../../components/admin/Editor/Editor"),
@@ -58,19 +59,22 @@ export default function PageEditor({ params }: { params: { slug: string } }) {
         ) : null}
 
         {params.slug[0] === "newpost" && (
-          <button onClick={() => uploadData({ date: date, content: data })}>
-            upload
-          </button>
+          <div className="w-[100px] h-[50px] flex justify-center items-start">
+            <Button onClick={() => uploadData({ date: date, content: data })}>
+              загрузить
+            </Button>
+          </div>
         )}
         {data && params.slug[0] !== "newpost" && (
-          <button
-            className="mx-8"
-            onClick={() =>
-              changeData({ date: date, content: data }, params.slug)
-            }
-          >
-            change
-          </button>
+          <div className="w-[100px] h-[50px] flex justify-center items-start">
+            <Button
+              onClick={() =>
+                changeData({ date: date, content: data }, params.slug)
+              }
+            >
+              изменить
+            </Button>
+          </div>
         )}
       </div>
       <div className="flex flex-col justify-center items-center border-t border-black">

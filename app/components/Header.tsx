@@ -1,7 +1,7 @@
 "use client";
 import MobileMenuLogo from "@/public/MobileMenuLogo";
 import Slider from "./Header/Slider/Slider";
-import Button from "./Header/Button";
+import HeaderButton from "./Header/HeaderButton";
 import { useState } from "react";
 import MobileMenu from "./Header/MobileMenu";
 import Link from "next/link";
@@ -35,12 +35,12 @@ export default function Header() {
       <div className="relative z-30 flex justify-between items-center h-[104px] px-4 pt-4 max-w-[1175px] w-full mx-auto sm:h-[140px] sm:pt-8">
         <img alt="logo" src="/logo.png" className="h-full" />
         <div className="hidden md:flex -mt-[30px] gap-4 lg:gap-8">
-          <Button>НОВОСТИ</Button>
-          <Button>БИБЛИОТЕКА</Button>
-          <Button>ВИДЕО</Button>
-          <Button>БИОГРАФИЯ</Button>
-          <Button>СОРАТНИКИ</Button>
-          <Button>КОНТАКТЫ</Button>
+          <HeaderButton>НОВОСТИ</HeaderButton>
+          <HeaderButton>БИБЛИОТЕКА</HeaderButton>
+          <HeaderButton>ВИДЕО</HeaderButton>
+          <HeaderButton>БИОГРАФИЯ</HeaderButton>
+          <HeaderButton>СОРАТНИКИ</HeaderButton>
+          <HeaderButton>КОНТАКТЫ</HeaderButton>
         </div>
         <div
           onClick={() => mobileMenuHeandler()}
@@ -63,5 +63,3 @@ export default function Header() {
     </div>
   );
 }
-
-//<div className='w-full relative -top-[90px] z-10  '>

@@ -1,3 +1,4 @@
+import Button from "@/app/components/admin/Button";
 import Link from "next/link";
 import React from "react";
 
@@ -34,7 +35,7 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
       <div className="flex flex-col gap-3">
         {data.map((post: Post, index: number) => {
           return (
-            <div className="flex gap-4" key={index}>
+            <div className="flex gap-4  items-start" key={index}>
               <p>{post.date}</p>
               {post.content.blocks.map((item: Block) => {
                 if (item.type === "header") {
@@ -47,12 +48,9 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
                   );
                 }
               })}
-              <button
-                className="border border-black rounded px-2 max-h-[25px]"
-                onClick={() => deleteHandler(post.id)}
-              >
-                delete
-              </button>
+              <div className="w-[100px] h-[50px] flex justify-center items-start">
+                <Button onClick={() => deleteHandler(post.id)}>удалить</Button>
+              </div>
             </div>
           );
         })}

@@ -15,17 +15,17 @@ const navDictionary = [
 export default function HeaderAdmin() {
   const pathname = usePathname();
   return (
-    <div className="flex gap-2 justify-center">
+    <div className="flex gap-4 justify-center py-2">
       {navDictionary.map((item, index) => {
         return (
           <Link
             href={item.ref}
             prefetch={false}
             key={index}
-            className={`${
+            className={`px-2 border border-black rounded ${
               pathname === item.ref
-                ? "border border-black px-2 rounded"
-                : "hover:border border-black px-2 rounded"
+                ? "bg-black text-white"
+                : "hover:hover:bg-black hover:text-white"
             }`}
           >
             {item.name}

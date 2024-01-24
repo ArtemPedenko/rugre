@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 interface VideoObject {
   id: number;
   title: string;
@@ -23,14 +25,9 @@ export default function VideoItem(props: Props) {
         src={`https://arthttp.ru/images/${videoObject.imgName}`}
         className="w-[100px] h-[100px] border border-black"
       />
-      <button
-        onClick={() => {
-          deleteHandler(videoObject.id);
-        }}
-        className="border border-black p-2"
-      >
-        удалить
-      </button>
+      <div className="w-[100px] h-[50px] flex justify-center items-center">
+        <Button onClick={() => deleteHandler(videoObject.id)}>удалить</Button>
+      </div>
     </div>
   );
 }
