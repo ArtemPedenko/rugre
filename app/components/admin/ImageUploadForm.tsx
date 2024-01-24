@@ -18,15 +18,13 @@ async function sendImageToServer(formData: CustomFormData) {
   return result;
 }
 
-export default function VideoForm(props: Props) {
+export default function ImageUploadForm(props: Props) {
   const { imageName, setImageName } = props;
   const inputRef = useRef(null);
-  //const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState(false);
   let formData = new FormData();
 
   function changeInput() {
-    //setInputType(!inputType);
     if (inputRef.current) {
       console.log(inputRef.current.files[0]);
       formData.append("file", inputRef.current.files[0]);
@@ -59,7 +57,7 @@ export default function VideoForm(props: Props) {
         }}
         className="w-[100px] border border-black"
       >
-        click
+        загрузить
       </button>
     </div>
   );
