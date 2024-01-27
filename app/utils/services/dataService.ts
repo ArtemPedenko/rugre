@@ -64,9 +64,7 @@ async function uploadVideo(body: any) {
     },
     body: JSON.stringify(body),
   });
-  const response = await res.json();
-  return response;
-  console.log(response);
+  return await res.json();
 }
 
 async function changeData(body: any, slug: string[]) {
@@ -80,8 +78,7 @@ async function changeData(body: any, slug: string[]) {
     },
     body: JSON.stringify(body),
   });
-  const response = await res.json();
-  console.log(response);
+  return await res.json();
 }
 
 export {

@@ -14,14 +14,12 @@ interface Props {
 }
 
 async function sendImageToServer(formData: CustomFormData) {
-  const result = await sendImage(formData);
-  return result;
+  return await sendImage(formData);
 }
 
 export default function ImageUploadForm(props: Props) {
   const { imageName, setImageName } = props;
   const inputRef = useRef(null);
-  const [inputType, setInputType] = useState(false);
   let formData = new FormData();
 
   function changeInput() {
@@ -30,21 +28,20 @@ export default function ImageUploadForm(props: Props) {
       formData.append("file", inputRef.current.files[0]);
       sendImageToServer(formData).then((e) => {
         setImageName(e.name);
-        setInputType(!inputType);
       });
     }
   }
 
   return (
     <div>
-      {!inputType && (
+      {!imageName && (
         <input
           ref={inputRef}
           type="file"
           className="border border-black w-[300px]"
         />
       )}
-      {inputType && (
+      {imageName && (
         <input
           value={imageName}
           onChange={(e) => setInputValue(e.target.value)}

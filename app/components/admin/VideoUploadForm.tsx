@@ -1,15 +1,21 @@
 "use client";
 import { useState } from "react";
-import { uploadVideo } from "@/app/utils/services/dataService";
+import { changeData, uploadVideo } from "@/app/utils/services/dataService";
 import ImageUploadForm from "@/app/components/admin/ImageUploadForm";
 
-interface Props {}
+interface VideoObject {
+  id: number;
+  title: string;
+  category: string;
+  videoUrl: string;
+  imgName: string;
+}
 
-export default function VideoUploadForm(props: Props) {
-  const [title, setTitle] = useState("");
-  const [videUrl, setVideoUrl] = useState("");
-  const [category, setCategory] = useState("");
-  const [imageName, setImageName] = useState("");
+export default function VideoUploadForm({ videoObject = {} as VideoObject }) {
+  const [title, setTitle] = useState(videoObject?.title || "");
+  const [videUrl, setVideoUrl] = useState(videoObject?.videoUrl || "");
+  const [category, setCategory] = useState(videoObject?.category || "");
+  const [imageName, setImageName] = useState(videoObject?.imgName || "");
 
   return (
     <div className="flex flex-col gap-4 mx-[50px]">
@@ -54,6 +60,22 @@ export default function VideoUploadForm(props: Props) {
         }}
       >
         отправить
+      </button>
+
+      <button
+        onClick={() => {
+          changeData(
+            {
+              title: title,
+              imgName: imageName,
+              videoUrl: videUrl,
+              category: category,
+            },
+            ["videos", String(videoObject.id)],
+          ).then((e) => console.log(e));
+        }}
+      >
+        изменить
       </button>
     </div>
   );

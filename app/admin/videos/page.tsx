@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllData, deleteItem } from "@/app/utils/services/dataService";
 import VideoItem from "@/app/components/admin/VideoItem";
 import VideoUploadForm from "@/app/components/admin/VideoUploadForm";
+import Link from "next/link";
 
 interface VideoObject {
   id: number;
@@ -16,7 +17,6 @@ interface VideoObject {
 export default function Videos() {
   const [data, setData] = useState();
   const [update, setUpdate] = useState(false);
-  const [newVideo, setNewVideo] = useState(false);
 
   useEffect(() => {
     try {
@@ -32,18 +32,11 @@ export default function Videos() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setNewVideo(!newVideo);
-          setData([]);
-        }}
-        className="px-4"
-      >
-        добавить новое видео
-      </button>
+      <Link href={"videos/newVideo"}>добавить новое видео</Link>
       {data && (
         <div className="flex flex-col gap-8 w-[90%] mx-auto">
           {data.map((item: VideoObject) => {
+            console.log(item);
             return (
               <VideoItem
                 key={item.id}
@@ -54,8 +47,6 @@ export default function Videos() {
           })}
         </div>
       )}
-
-      {newVideo && <VideoUploadForm />}
     </>
   );
 }
