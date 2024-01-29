@@ -31,7 +31,7 @@ export default function Videos() {
 
   return (
     <div className="mt-[30px]">
-      <div className="w-screen flex justify-end p-3">
+      <div className="w-[90%] mx-auto flex justify-end">
         <Link href={"videos/newVideo"}>
           <Button>добавить новое видео</Button>
         </Link>
