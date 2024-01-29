@@ -16,9 +16,7 @@ type PreviewProps = {
 
 export default function EditorPreview(props: PreviewProps) {
   const { date, editorData } = props;
-  /* console.log("date", props.date);
-  console.log(props.editorData);
-  return <></>; */
+
   return (
     <div className="flex flex-col justify-center items-center max-w-[650px] w-full">
       <h2 className="text-bold text-[22px]">{date}</h2>
