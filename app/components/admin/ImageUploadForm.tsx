@@ -1,12 +1,6 @@
 import { useRef, useState } from "react";
 import { sendImage } from "@/app/utils/services/fileService";
 
-interface CustomFormData extends FormData {
-  name: string;
-  value: Blob;
-  fileName?: string;
-}
-
 interface Props {
   imageName: string;
   setImageName: Function;
@@ -36,8 +30,6 @@ export default function ImageUploadForm(props: Props) {
       });
     }
   }
-
-  function changeInput() {}
 
   return (
     <div className="flex gap-3">
