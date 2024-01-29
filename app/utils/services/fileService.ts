@@ -5,7 +5,7 @@ interface CustomFormData extends FormData {
 }
 //https://arthttp.ru/api/images
 //http://localhost:4000/api/images
-async function sendImage(formData: CustomFormData) {
+async function sendImage(formData: FormData) {
   const res = await fetch(`/admin/api`, {
     method: "POST",
     credentials: "include",
