@@ -10,34 +10,63 @@ interface VideoObject {
   videoUrl: string;
   imgName: string;
 }
-
-export default function VideoUploadForm({ videoObject = {} as VideoObject }) {
+interface VideoUploadFormProps {
+  upload?: boolean;
+  videoObject?: VideoObject | undefined;
+}
+export default function VideoUploadForm({
+  upload,
+  videoObject,
+}: VideoUploadFormProps) {
   const [title, setTitle] = useState(videoObject?.title || "");
   const [videUrl, setVideoUrl] = useState(videoObject?.videoUrl || "");
   const [category, setCategory] = useState(videoObject?.category || "");
   const [imageName, setImageName] = useState(videoObject?.imgName || "");
 
+  function handleChange() {
+    if (videoObject) {
+      changeData(
+        {
+          title: title,
+          imgName: imageName,
+          videoUrl: videUrl,
+          category: category,
+        },
+        ["videos", String(videoObject.id)],
+      ).then((e) => console.log(e));
+    }
+  }
+
+  function handleUpload() {
+    uploadVideo({
+      title: title,
+      imgName: imageName,
+      videoUrl: videUrl,
+      category: category,
+    }).then((e) => console.log(e));
+  }
+
   return (
-    <div className="flex flex-col gap-4 mx-[50px]">
+    <div className="flex flex-col gap-4 mx-[50px] mt-[30px]">
       <ImageUploadForm imageName={imageName} setImageName={setImageName} />
-      <div>
-        заголовок
+      <div className="flex gap-3">
+        <div className="w-[80px]">заголовок</div>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="border border-black w-[400px]"
         />
       </div>
-      <div>
-        url видео
+      <div className="flex gap-3">
+        <div className="w-[80px]">url видео</div>
         <input
           value={videUrl}
           onChange={(e) => setVideoUrl(e.target.value)}
           className="border border-black w-[400px]"
         />
       </div>
-      <div>
-        категория
+      <div className="flex gap-3">
+        <div className="w-[80px]">категория</div>
         <select
           id="categories"
           name="categories"
@@ -49,34 +78,11 @@ export default function VideoUploadForm({ videoObject = {} as VideoObject }) {
           <option value="geopolitics-theory">теория геополитики</option>
         </select>
       </div>
-      <button
-        onClick={() => {
-          uploadVideo({
-            title: title,
-            imgName: imageName,
-            videoUrl: videUrl,
-            category: category,
-          }).then((e) => console.log(e));
-        }}
-      >
-        отправить
-      </button>
-
-      <button
-        onClick={() => {
-          changeData(
-            {
-              title: title,
-              imgName: imageName,
-              videoUrl: videUrl,
-              category: category,
-            },
-            ["videos", String(videoObject.id)],
-          ).then((e) => console.log(e));
-        }}
-      >
-        изменить
-      </button>
+      {upload ? (
+        <button onClick={() => handleUpload()}>отправить</button>
+      ) : (
+        <button onClick={() => handleChange()}>изменить</button>
+      )}
     </div>
   );
 }

@@ -33,7 +33,8 @@ export default function ImageUploadForm(props: Props) {
   }
 
   return (
-    <div>
+    <div className="flex gap-3">
+      <div className="w-[80px]">картинка</div>
       {!imageName && (
         <input
           ref={inputRef}

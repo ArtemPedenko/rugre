@@ -14,7 +14,7 @@ export default function VideoSlug({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      {slug === "newVideo" && <VideoUploadForm />}
+      {slug === "newVideo" && <VideoUploadForm upload={true} />}
       {data && <VideoUploadForm videoObject={data} />}
     </>
   );

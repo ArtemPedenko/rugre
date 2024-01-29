@@ -5,6 +5,7 @@ import { getAllData, deleteItem } from "@/app/utils/services/dataService";
 import VideoItem from "@/app/components/admin/VideoItem";
 import VideoUploadForm from "@/app/components/admin/VideoUploadForm";
 import Link from "next/link";
+import Button from "@/app/components/admin/Button";
 
 interface VideoObject {
   id: number;
@@ -31,10 +32,15 @@ export default function Videos() {
   }
 
   return (
-    <>
-      <Link href={"videos/newVideo"}>добавить новое видео</Link>
+    <div className="mt-[30px]">
+      <div className="w-screen flex justify-end p-3">
+        <Link href={"videos/newVideo"}>
+          <Button>добавить новое видео</Button>
+        </Link>
+      </div>
+
       {data && (
-        <div className="flex flex-col gap-8 w-[90%] mx-auto">
+        <div className="flex flex-col gap-8 w-[90%] mx-auto mt-[30px]">
           {data.map((item: VideoObject) => {
             console.log(item);
             return (
@@ -47,6 +53,6 @@ export default function Videos() {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }
