@@ -1,9 +1,7 @@
-// @ts-nocheck
 "use client";
 import { useEffect, useState } from "react";
 import { getAllData, deleteItem } from "@/app/utils/services/dataService";
 import VideoItem from "@/app/components/admin/VideoItem";
-import VideoUploadForm from "@/app/components/admin/VideoUploadForm";
 import Link from "next/link";
 import Button from "@/app/components/admin/Button";
 
@@ -16,7 +14,7 @@ interface VideoObject {
 }
 
 export default function Videos() {
-  const [data, setData] = useState();
+  const [data, setData] = useState<VideoObject[] | undefined>(undefined);
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
