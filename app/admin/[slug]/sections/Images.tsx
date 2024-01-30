@@ -26,6 +26,7 @@ const Images: React.FC<Props> = ({ data, deleteHandler }) => {
                 src={`https://arthttp.ru/images/${item.name}`}
                 className="w-[100px] h-[100px]"
               />
+              <div>{item.name}</div>
               <div className="w-[100px] h-[50px] flex justify-center items-center">
                 <Button onClick={() => deleteHandler(item.id)}>удалить</Button>
               </div>
