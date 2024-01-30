@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { changeData, uploadVideo } from "@/app/utils/services/dataService";
 import ImageUploadForm from "@/app/components/admin/ImageUploadForm";
+import Button from "./Button";
 
 interface VideoObject {
   id: number;
@@ -32,7 +33,7 @@ export default function VideoUploadForm({
           videoUrl: videUrl,
           category: category,
         },
-        ["videos", String(videoObject.id)],
+        ["videos", String(videoObject.id)]
       ).then((e) => console.log(e));
     }
   }
@@ -78,11 +79,13 @@ export default function VideoUploadForm({
           <option value="geopolitics-theory">теория геополитики</option>
         </select>
       </div>
-      {upload ? (
-        <button onClick={() => handleUpload()}>отправить</button>
-      ) : (
-        <button onClick={() => handleChange()}>изменить</button>
-      )}
+      <div className="w-[100px] mx-auto">
+        {upload ? (
+          <Button onClick={() => handleUpload()}>отправить</Button>
+        ) : (
+          <Button onClick={() => handleChange()}>изменить</Button>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { sendImage } from "@/app/utils/services/fileService";
+import Button from "./Button";
 
 interface Props {
   imageName: string;
@@ -31,31 +32,47 @@ export default function ImageUploadForm(props: Props) {
     }
   }
 
+  function handleInputChange() {
+    setInputTypeState(!inputTypeState);
+  }
+
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 h-[30px]">
       <div className="w-[80px]">картинка</div>
-      {!inputTypeState && (
-        <input
-          ref={inputRef}
-          type="file"
-          className="border border-black w-[300px]"
-        />
-      )}
-      {inputTypeState && (
+      {inputTypeState ? (
         <input
           value={imageName}
           onChange={(e) => setImageName(e.target.value)}
-          className="border border-black w-[300px]"
+          className="border border-black w-[400px]"
         />
+      ) : (
+        <div className="w-[400px] flex justify-between">
+          <input
+            ref={inputRef}
+            type="file"
+            className="border border-black w-[315px]"
+          />
+          <div className="flex items-center">
+            <Button
+              onClick={() => {
+                uploadImage();
+              }}
+            >
+              загрузить
+            </Button>
+          </div>
+        </div>
       )}
-      <button
-        onClick={() => {
-          uploadImage();
-        }}
-        className="w-[100px] border border-black"
-      >
-        загрузить
-      </button>
+
+      <div className="flex items-center">
+        <Button
+          onClick={() => {
+            handleInputChange();
+          }}
+        >
+          {inputTypeState ? "загрузить картинку" : "ввести имя картинки"}
+        </Button>
+      </div>
     </div>
   );
 }
