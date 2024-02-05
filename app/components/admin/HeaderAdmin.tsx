@@ -11,7 +11,7 @@ const navDictionary = [
     name: "Post editor",
     highLight: "posteditor",
   },
-  { ref: "/admin/videos", name: "Videos", highLight: " " },
+  { ref: "/admin/videos", name: "Videos", highLight: "newVideo" },
   { ref: "/admin/images", name: "Images", highLight: " " },
   { ref: "/admin/files", name: "Files", highLight: " " },
 ];

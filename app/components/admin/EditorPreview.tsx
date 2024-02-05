@@ -30,7 +30,12 @@ export default function EditorPreview(props: PreviewProps) {
             );
           }
           if (item.type === "paragraph") {
-            return <p key={item.id}>{item.data.text}</p>;
+            return (
+              <p
+                key={item.id}
+                dangerouslySetInnerHTML={{ __html: item.data.text! }}
+              />
+            );
           }
           if (item.type === "image") {
             return (

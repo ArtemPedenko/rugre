@@ -16,7 +16,6 @@ export const EDITOR_TOOLS = {
     class: Paragraph,
     config: {
       placeholder: "enter paragraph",
-      inlineToolbar: true,
     },
   },
   image: {
