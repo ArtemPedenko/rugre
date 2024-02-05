@@ -91,9 +91,14 @@ export async function POST(request: NextRequest) {
     case "fileUpload": {
       const formData = await request.formData();
       const file = formData.get("file");
+      const alt = formData.get("alt");
+      console.log(alt);
       const data = new FormData();
       if (file) {
         data.append("file", file);
+      }
+      if (alt) {
+        data.append("alt", alt);
       }
       const res = await fetch(url, {
         method: "POST",

@@ -10,6 +10,7 @@ interface VideoObject {
   category: string;
   videoUrl: string;
   imgName: string;
+  imgAlt: string;
 }
 interface VideoUploadFormProps {
   upload?: boolean;
@@ -23,6 +24,7 @@ export default function VideoUploadForm({
   const [videUrl, setVideoUrl] = useState(videoObject?.videoUrl || "");
   const [category, setCategory] = useState(videoObject?.category || "");
   const [imageName, setImageName] = useState(videoObject?.imgName || "");
+  const [imageAlt, setImageAlt] = useState(videoObject?.imgAlt || "");
 
   function handleChange() {
     if (videoObject) {
@@ -33,7 +35,7 @@ export default function VideoUploadForm({
           videoUrl: videUrl,
           category: category,
         },
-        ["videos", String(videoObject.id)]
+        ["videos", String(videoObject.id)],
       ).then((e) => console.log(e));
     }
   }
@@ -48,8 +50,13 @@ export default function VideoUploadForm({
   }
 
   return (
-    <div className="flex flex-col gap-4 mx-[50px] mt-[30px]">
-      <ImageUploadForm imageName={imageName} setImageName={setImageName} />
+    <div className="flex flex-col gap-4 mx-[50px] mt-[30px] border border-black">
+      <ImageUploadForm
+        imageName={imageName}
+        setImageName={setImageName}
+        imageAlt={imageAlt}
+        setImageAlt={setImageAlt}
+      />
       <div className="flex gap-3">
         <div className="w-[80px]">заголовок</div>
         <input
