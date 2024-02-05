@@ -17,6 +17,7 @@ async function sendImageToServer(formData: FormData) {
 export default function ImageUploadForm(props: Props) {
   const { imageName, setImageName, imageAlt, setImageAlt } = props;
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [file, setFile] = useState<FileList | null>(null);
   const [inputTypeState, setInputTypeState] = useState(false);
   const [fileError, setFileError] = useState(false);
   const [altError, setAltError] = useState(false);
@@ -26,23 +27,14 @@ export default function ImageUploadForm(props: Props) {
     if (imageAlt) {
       setAltError(false);
     }
-    if (
-      inputRef.current &&
-      inputRef.current.files &&
-      inputRef.current.files.length > 0
-    ) {
+    if (file) {
       setFileError(false);
     }
-  }, [imageAlt, inputRef.current?.files]);
+  }, [imageAlt, file]);
 
   function uploadImage() {
-    if (
-      inputRef.current &&
-      inputRef.current.files &&
-      inputRef.current.files.length > 0 &&
-      imageAlt
-    ) {
-      const originalFile = inputRef.current.files[0];
+    if (file && imageAlt) {
+      const originalFile = file[0];
       const newFileName = transliterate(originalFile.name);
       const updatedFile = new File([originalFile], newFileName, {
         type: originalFile.type,
@@ -56,11 +48,7 @@ export default function ImageUploadForm(props: Props) {
         setInputTypeState(true);
       });
     }
-    if (
-      inputRef.current &&
-      inputRef.current.files &&
-      inputRef.current.files.length < 1
-    ) {
+    if (!file) {
       setFileError(true);
     }
     if (!imageAlt) {
@@ -88,7 +76,7 @@ export default function ImageUploadForm(props: Props) {
               ref={inputRef}
               type="file"
               className="border border-black w-[315px]"
-              onChange={(e) => console.log(e.target.files)}
+              onChange={(e) => setFile(e.target.files)}
             />
             <div className="flex items-center">
               <Button
