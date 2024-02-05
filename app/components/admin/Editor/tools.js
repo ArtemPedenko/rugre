@@ -1,6 +1,6 @@
 import Paragraph from "@editorjs/paragraph";
 import Header from "@editorjs/header";
-import { FileName, ImageName, Video } from "./customTools";
+import { FileName, ImageName } from "./customTools";
 
 export const EDITOR_TOOLS = {
   header: {
@@ -24,8 +24,5 @@ export const EDITOR_TOOLS = {
   },
   file: {
     class: FileName,
-  },
-  video: {
-    class: Video,
   },
 };

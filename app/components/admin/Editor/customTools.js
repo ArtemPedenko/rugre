@@ -1,4 +1,5 @@
 import { sendImage, sendFile } from "@/app/utils/services/fileService";
+import { transliterate } from "@/app/utils/services/fileName";
 
 class ImageName {
   static get toolbox() {
@@ -15,14 +16,21 @@ class ImageName {
   render() {
     const wrapper = document.createElement("div");
     const input = document.createElement("input");
+    const inputFile = document.createElement("input");
     const button = document.createElement("button");
     const buttonSwitch = document.createElement("button");
+    const altInput = document.createElement("input");
+    const altError = document.createElement("div");
 
     wrapper.classList.add("simple-image");
     wrapper.appendChild(input);
     /*   wrapper.appendChild(button); */
     wrapper.appendChild(buttonSwitch);
 
+    inputFile.type = "file";
+    altError.classList.add("error-text");
+    altError.textContent = "Введите alt";
+    altInput.placeholder = "введите alt";
     button.classList.add("button-upload");
     buttonSwitch.classList.add("button-upload");
     button.innerHTML = "загрузить";
@@ -30,17 +38,35 @@ class ImageName {
     input.placeholder = "Paste an image name...";
     input.value = this.data && this.data.url ? this.data.url : "";
     button.addEventListener("click", async function () {
-      let formData = new FormData();
-      formData.append("file", input.files[0]);
-      const result = await sendImage(formData);
-      input.type = "text";
-      input.value = result.name;
-      wrapper.removeChild(button);
+      if (input.files.length < 1 || altInput.value.length < 1) {
+        wrapper.appendChild(altError);
+      } else {
+        let formData = new FormData();
+        const originalFile = input.files[0];
+        const newFileName = transliterate(originalFile.name);
+        const updatedFile = new File([originalFile], newFileName, {
+          type: originalFile.type,
+          lastModified: originalFile.lastModified,
+        });
+        formData.append("file", updatedFile);
+        formData.append("alt", altInput.value);
+        const result = await sendImage(formData);
+        input.type = "text";
+        input.value = result.name;
+        wrapper.removeChild(button);
+        wrapper.removeChild(altInput);
+      }
+    });
+    altInput.addEventListener("input", function () {
+      if (wrapper.contains(altError)) {
+        wrapper.removeChild(altError);
+      }
     });
     buttonSwitch.addEventListener("click", function () {
       input.type = "file";
       wrapper.appendChild(button);
       wrapper.removeChild(buttonSwitch);
+      wrapper.appendChild(altInput);
     });
     return wrapper;
   }
@@ -94,7 +120,14 @@ class FileName {
 
     button.addEventListener("click", async function () {
       let formData = new FormData();
-      formData.append("file", input.files[0]);
+
+      const originalFile = input.files[0];
+      const newFileName = transliterate(originalFile.name);
+      const updatedFile = new File([originalFile], newFileName, {
+        type: originalFile.type,
+        lastModified: originalFile.lastModified,
+      });
+      formData.append("file", updatedFile);
       const result = await sendFile(formData);
       input.type = "text";
       input.value = result.name;
@@ -127,46 +160,4 @@ class FileName {
   }
 }
 
-class Video {
-  static get toolbox() {
-    return {
-      title: "Video",
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 -960 960 960" width="24"><path d="m380-300 280-180-280-180v360ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/></svg>',
-    };
-  }
-
-  constructor({ data }) {
-    this.data = data;
-  }
-
-  render() {
-    const wrapper = document.createElement("div");
-    const input = document.createElement("input");
-
-    wrapper.classList.add("simple-image");
-    wrapper.appendChild(input);
-
-    input.placeholder = "Paste an file name...";
-    input.value = this.data && this.data.url ? this.data.url : "";
-
-    return wrapper;
-  }
-
-  save(blockContent) {
-    const input = blockContent.querySelector("input");
-
-    return {
-      url: input.value.trim(),
-    };
-  }
-
-  validate(savedData) {
-    if (!savedData.url.trim()) {
-      return false;
-    }
-
-    return true;
-  }
-}
-
-export { ImageName, FileName, Video };
+export { ImageName, FileName };
