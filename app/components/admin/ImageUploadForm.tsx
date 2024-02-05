@@ -4,10 +4,10 @@ import Button from "./Button";
 import { transliterate } from "@/app/utils/services/fileName";
 
 interface Props {
-  imageName: string;
-  setImageName: Function;
-  imageAlt: string;
-  setImageAlt: Function;
+  imageName?: string;
+  setImageName?: (value: string) => void;
+  imageAlt?: string;
+  setImageAlt?: (value: string) => void;
 }
 
 async function sendImageToServer(formData: FormData) {
@@ -15,7 +15,8 @@ async function sendImageToServer(formData: FormData) {
 }
 
 export default function ImageUploadForm(props: Props) {
-  const { imageName, setImageName, imageAlt, setImageAlt } = props;
+  const [imageName, setImageName] = useState(props.imageName || "");
+  const [imageAlt, setImageAlt] = useState(props.imageAlt || "");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<FileList | null>(null);
   const [inputTypeState, setInputTypeState] = useState(false);
@@ -70,7 +71,7 @@ export default function ImageUploadForm(props: Props) {
           className="border border-black w-[400px]"
         />
       ) : (
-        <div className="flex flex-col gap-3 border border-black">
+        <div className="flex flex-col gap-3">
           <div className="w-[400px] flex justify-between">
             <input
               ref={inputRef}

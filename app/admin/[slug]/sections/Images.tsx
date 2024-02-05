@@ -1,5 +1,6 @@
 import Button from "@/app/components/admin/Button";
-import React from "react";
+import React, { useState } from "react";
+import ImageUploadForm from "@/app/components/admin/ImageUploadForm";
 
 interface Image {
   id: number;
@@ -12,8 +13,16 @@ interface Props {
 }
 
 const Images: React.FC<Props> = ({ data, deleteHandler }) => {
+  const [newImage, setNewImage] = useState(false);
+
   return (
-    <div className="px-8 ">
+    <div className="px-8 flex flex-col">
+      <div>
+        <Button onClick={() => setNewImage(!newImage)}>
+          Загрузить картинку
+        </Button>
+      </div>
+      <div className="my-3">{newImage && <ImageUploadForm />}</div>
       <div className="flex flex-col gap-3">
         {data.map((item: Image) => {
           return (
