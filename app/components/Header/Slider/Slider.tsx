@@ -31,32 +31,16 @@ const Slider = () => {
       autoHeight={true}
     >
       <SwiperSlide className="swiper-slide-slider">
-        <img
-          className="img"
-          alt="q"
-          src="https://ruslangrebnev.ru/wp-content/uploads/2022/11/3popuarization.png"
-        />
+        <img className="img" alt="q" src="/images/1.png" />
       </SwiperSlide>
       <SwiperSlide className="swiper-slide-slider">
-        <img
-          className="img"
-          alt="q"
-          src="https://ruslangrebnev.ru/wp-content/uploads/2022/11/1research.png"
-        />
+        <img className="img" alt="q" src="/images/2.png" />
       </SwiperSlide>
       <SwiperSlide className="swiper-slide-slider">
-        <img
-          className="img"
-          alt="q"
-          src="https://ruslangrebnev.ru/wp-content/uploads/2022/11/2conceptrussia.png"
-        />
+        <img className="img" alt="q" src="/images/3.png" />
       </SwiperSlide>
       <SwiperSlide className="swiper-slide-slider">
-        <img
-          className="img"
-          alt="q"
-          src="https://ruslangrebnev.ru/wp-content/uploads/2022/11/4reason.png"
-        />
+        <img className="img" alt="q" src="/images/4.png" />
       </SwiperSlide>
     </Swiper>
   );
