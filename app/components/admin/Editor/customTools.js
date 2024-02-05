@@ -24,7 +24,6 @@ class ImageName {
 
     wrapper.classList.add("simple-image");
     wrapper.appendChild(input);
-    /*   wrapper.appendChild(button); */
     wrapper.appendChild(buttonSwitch);
 
     inputFile.type = "file";
@@ -38,11 +37,11 @@ class ImageName {
     input.placeholder = "Paste an image name...";
     input.value = this.data && this.data.url ? this.data.url : "";
     button.addEventListener("click", async function () {
-      if (input.files.length < 1 || altInput.value.length < 1) {
+      if (inputFile.files.length < 1 || altInput.value.length < 1) {
         wrapper.appendChild(altError);
       } else {
         let formData = new FormData();
-        const originalFile = input.files[0];
+        const originalFile = inputFile.files[0];
         const newFileName = transliterate(originalFile.name);
         const updatedFile = new File([originalFile], newFileName, {
           type: originalFile.type,
@@ -51,8 +50,9 @@ class ImageName {
         formData.append("file", updatedFile);
         formData.append("alt", altInput.value);
         const result = await sendImage(formData);
-        input.type = "text";
         input.value = result.name;
+        wrapper.removeChild(inputFile);
+        wrapper.appendChild(input);
         wrapper.removeChild(button);
         wrapper.removeChild(altInput);
       }
@@ -63,7 +63,8 @@ class ImageName {
       }
     });
     buttonSwitch.addEventListener("click", function () {
-      input.type = "file";
+      wrapper.removeChild(input);
+      wrapper.appendChild(inputFile);
       wrapper.appendChild(button);
       wrapper.removeChild(buttonSwitch);
       wrapper.appendChild(altInput);
@@ -103,6 +104,7 @@ class FileName {
   render() {
     const wrapper = document.createElement("div");
     const input = document.createElement("input");
+    const inputFile = document.createElement("input");
     const button = document.createElement("button");
     const buttonSwitch = document.createElement("button");
 
@@ -110,6 +112,7 @@ class FileName {
     wrapper.appendChild(input);
     wrapper.appendChild(buttonSwitch);
 
+    inputFile.type = "file";
     button.classList.add("button-upload");
     buttonSwitch.classList.add("button-upload");
     button.innerHTML = "загрузить";
@@ -119,23 +122,26 @@ class FileName {
     input.value = this.data && this.data.url ? this.data.url : "";
 
     button.addEventListener("click", async function () {
-      let formData = new FormData();
-
-      const originalFile = input.files[0];
-      const newFileName = transliterate(originalFile.name);
-      const updatedFile = new File([originalFile], newFileName, {
-        type: originalFile.type,
-        lastModified: originalFile.lastModified,
-      });
-      formData.append("file", updatedFile);
-      const result = await sendFile(formData);
-      input.type = "text";
-      input.value = result.name;
-      wrapper.removeChild(button);
+      if (inputFile.files.length > 0) {
+        let formData = new FormData();
+        const originalFile = inputFile.files[0];
+        const newFileName = transliterate(originalFile.name);
+        const updatedFile = new File([originalFile], newFileName, {
+          type: originalFile.type,
+          lastModified: originalFile.lastModified,
+        });
+        formData.append("file", updatedFile);
+        const result = await sendFile(formData);
+        input.value = result.name;
+        wrapper.removeChild(inputFile);
+        wrapper.appendChild(input);
+        wrapper.removeChild(button);
+      }
     });
 
     buttonSwitch.addEventListener("click", function () {
-      input.type = "file";
+      wrapper.removeChild(input);
+      wrapper.appendChild(inputFile);
       wrapper.appendChild(button);
       wrapper.removeChild(buttonSwitch);
     });
