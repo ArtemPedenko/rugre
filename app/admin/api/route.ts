@@ -92,7 +92,6 @@ export async function POST(request: NextRequest) {
       const formData = await request.formData();
       const file = formData.get("file");
       const alt = formData.get("alt");
-      console.log(alt);
       const data = new FormData();
       if (file) {
         data.append("file", file);

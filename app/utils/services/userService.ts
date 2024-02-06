@@ -1,9 +1,10 @@
+import { endpoints } from "@/app/utils/constants";
 async function loginUser(login: string, password: string) {
   const response = await fetch("/admin/api", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      url: "https://arthttp.ru/api/user/login",
+      url: endpoints.user,
       case: "login",
     },
     body: JSON.stringify({
@@ -16,12 +17,12 @@ async function loginUser(login: string, password: string) {
 
 //https://arthttp.ru/api/user/refresh-token
 async function refreshAccessToken(login: string, refreshToken: string) {
-  const response = await fetch("https://arthttp.ru/api/user/refresh-token", {
+  const response = await fetch(endpoints.refreshToken, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       credentials: "include",
-      url: "https://arthttp.ru/api/user/refresh-token",
+      url: endpoints.refreshToken,
       case: "refreshAccessToken",
       Cookie: `refreshToken=${refreshToken}`,
     },
@@ -29,8 +30,7 @@ async function refreshAccessToken(login: string, refreshToken: string) {
       login: login,
     }),
   });
-  const res = await response.json();
-  return res;
+  return await response.json();
 }
 
 export { loginUser, refreshAccessToken };

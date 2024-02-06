@@ -1,10 +1,11 @@
+import { endpoints } from "@/app/utils/constants";
 async function getAllData(slug: string) {
   const res = await fetch(`/admin/api`, {
     method: "GET",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug}`,
+      url: `${endpoints.api}${slug}`,
     },
   });
   const data = await res.json();
@@ -21,7 +22,7 @@ async function getOneData(slug: string[]) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug[0]}/${slug[1]}`,
+      url: `${endpoints.api}${slug[0]}/${slug[1]}`,
     },
   });
   return await res.json();
@@ -33,7 +34,7 @@ async function deleteItem(id: string, slug: string) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug}/${id}`,
+      url: `${endpoints.api}${slug}/${id}`,
     },
   });
 }
@@ -44,7 +45,7 @@ async function uploadData(body: any) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: "https://arthttp.ru/api/posts",
+      url: endpoints.posts,
       case: "post",
     },
     body: JSON.stringify(body),
@@ -59,7 +60,7 @@ async function uploadVideo(body: any) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: "https://arthttp.ru/api/videos",
+      url: endpoints.videos,
       case: "post",
     },
     body: JSON.stringify(body),
@@ -73,7 +74,7 @@ async function changeData(body: any, slug: string[]) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      url: `https://arthttp.ru/api/${slug[0]}/${slug[1]}`,
+      url: `${endpoints.api}${slug[0]}/${slug[1]}`,
       case: "post",
     },
     body: JSON.stringify(body),

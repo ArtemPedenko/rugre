@@ -1,10 +1,10 @@
+import { endpoints } from "@/app/utils/constants";
 interface CustomFormData extends FormData {
   name: string;
   value: Blob;
   fileName?: string;
 }
-//https://arthttp.ru/api/images
-//http://localhost:4000/api/images
+
 async function sendImage(formData: FormData) {
   const res = await fetch(`/admin/api`, {
     method: "POST",
@@ -12,7 +12,7 @@ async function sendImage(formData: FormData) {
     body: formData,
     headers: {
       case: "fileUpload",
-      url: "https://arthttp.ru/api/images",
+      url: endpoints.images,
     },
   });
 
@@ -26,7 +26,7 @@ async function sendFile(formData: CustomFormData) {
     body: formData,
     headers: {
       case: "fileUpload",
-      url: "https://arthttp.ru/api/docs",
+      url: endpoints.docs,
     },
   });
 
