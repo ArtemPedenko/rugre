@@ -31,11 +31,11 @@ export default function PostPreviewItem({ data }: PostPreviewItemProps) {
   const previewData = prepareData(data);
 
   return (
-    <div className="flex gap-4 border-t-2 border-black">
-      <div className="text-[16px] ">{previewData.date}</div>
-      <div className="text-[22px] w-[550px]">{previewData.header}</div>
+    <div className="flex flex-col items-center text-center md:text-start md:flex-row md:items-start gap-4 border-t-2 border-black p-3">
+      <div className="text-[16px]">{previewData.date}</div>
+      <div className="text-[22px] md:w-[550px]">{previewData.header}</div>
       <div
-        className="font-serif text-[15px] font-normal max-w-[400px] "
+        className="font-serif text-[15px] font-normal md:max-w-[400px] "
         dangerouslySetInnerHTML={{ __html: previewData.paragraph }}
       />
     </div>

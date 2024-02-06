@@ -19,7 +19,7 @@ export default function Home() {
       <Header />
       <div className="pt-[59px] px-[15px] font-bold text-[65px]">
         <h2>HОВОСТИ</h2>
-        <div className="flex flex-col gap-3 ">
+        <div className="flex flex-col gap-3 mt-[35px]">
           {postData.map((item: Post, index) => {
             return (
               <div key={item.id}>
