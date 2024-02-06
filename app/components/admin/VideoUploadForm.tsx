@@ -23,15 +23,16 @@ export default function VideoUploadForm({
   const [title, setTitle] = useState(videoObject?.title || "");
   const [videUrl, setVideoUrl] = useState(videoObject?.videoUrl || "");
   const [category, setCategory] = useState(videoObject?.category || "");
-  const [imageName, setImageName] = useState(videoObject?.imgName || "");
-  const [imageAlt, setImageAlt] = useState(videoObject?.imgAlt || "");
+  const [imageNameProp, setImageNameProp] = useState(
+    videoObject?.imgName || "",
+  );
 
   function handleChange() {
     if (videoObject) {
       changeData(
         {
           title: title,
-          imgName: imageName,
+          imgName: imageNameProp,
           videoUrl: videUrl,
           category: category,
         },
@@ -41,22 +42,18 @@ export default function VideoUploadForm({
   }
 
   function handleUpload() {
+    console.log(imageNameProp);
     uploadVideo({
       title: title,
-      imgName: imageName,
+      imgName: imageNameProp,
       videoUrl: videUrl,
       category: category,
     }).then((e) => console.log(e));
   }
 
   return (
-    <div className="flex flex-col gap-4 mx-[50px] mt-[30px] border border-black">
-      <ImageUploadForm
-        imageName={imageName}
-        setImageName={setImageName}
-        imageAlt={imageAlt}
-        setImageAlt={setImageAlt}
-      />
+    <div className="flex flex-col gap-4 mx-[50px] mt-[30px]">
+      <ImageUploadForm setImageNameProp={setImageNameProp} />
       <div className="flex gap-3">
         <div className="w-[80px]">заголовок</div>
         <input

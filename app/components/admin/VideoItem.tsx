@@ -16,6 +16,7 @@ interface Props {
 
 export default function VideoItem(props: Props) {
   const { videoObject, deleteHandler } = props;
+  console.log(`https://arthttp.ru/images/${videoObject.imgName}`);
   return (
     <div className="w-full flex justify-between items-center gap-4 border border-black rounded p-3">
       <Link
