@@ -36,7 +36,7 @@ const Posts: React.FC<Props> = ({ data, deleteHandler }) => {
         {data.map((post: Post, index: number) => {
           return (
             <div
-              className="flex gap-4 items-start justify-between max-h-[50px] overflow-hidden"
+              className="flex gap-4 items-start justify-between max-h-[50px] overflow-hidden border-y border-black p-1"
               key={index}
             >
               <div className="flex gap-4 w-[80%]">

@@ -19,7 +19,7 @@ const Files: React.FC<Props> = ({ data, deleteHandler }) => {
           console.log(item);
           return (
             <div
-              className="flex gap-4 justify-center items-center"
+              className="flex gap-4 justify-between items-center border-y border-black p-1"
               key={item.id}
             >
               {item.name}

@@ -27,7 +27,7 @@ const Images: React.FC<Props> = ({ data, deleteHandler }) => {
         {data.map((item: Image) => {
           return (
             <div
-              className="flex gap-4 justify-center items-center"
+              className="flex gap-4 justify-between items-center border-y border-black py-1"
               key={item.id}
             >
               <img
