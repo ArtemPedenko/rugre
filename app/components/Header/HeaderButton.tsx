@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React from "react";
 
 interface ButtonProps {
   children: string;

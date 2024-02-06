@@ -18,7 +18,7 @@ export default function EditorPreview(props: PreviewProps) {
   const { date, editorData } = props;
 
   return (
-    <div className="flex flex-col justify-center items-center max-w-[650px] w-full">
+    <div className="font-serif flex flex-col justify-center items-center max-w-[650px] w-full">
       <h2 className="text-bold text-[22px]">{date}</h2>
       <div className="flex flex-col justify-center items-center gap-4">
         {editorData.blocks.map((item: EditorBlocks) => {

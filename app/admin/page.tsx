@@ -12,7 +12,7 @@ export default function PageEditor() {
 
   return (
     <>
-      <div>admin page</div>
+      <div className="font-serif">admin page</div>
       <Popup isOpen={open} onClose={handler}>
         ololo
       </Popup>

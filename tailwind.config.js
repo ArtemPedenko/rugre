@@ -22,6 +22,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-bebas)"],
+        serif: ["Arial"],
       },
       boxShadow: {
         sm: "1px 1px 5px 1px rgba(0, 0, 0, 0.3)",
